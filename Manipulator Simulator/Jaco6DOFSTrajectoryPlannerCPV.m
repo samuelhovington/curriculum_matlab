@@ -2,7 +2,7 @@
 %Creation: 2018-10-18
 %Modifications 2018-10-18
 %Trajectory planner with 1 via point in the middle
-yo
+
 function trajectory = Jaco6DOFSTrajectoryPlannerCPV(theta_i, theta_v, theta_g, desired_time)
 
 % clear all
