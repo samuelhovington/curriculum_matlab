@@ -44,16 +44,7 @@ function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
         T4=T3*T(:,:,4);
         T5=T4*T(:,:,5);
         T6=T5*T(:,:,6);
-
-        %Jacobian
-        Jacobcol1=[cross([0;0;-1], [T6(1,4); T6(2,4); T6(3,4)]); 0; 0; -1];
-        Jacobcol2=[cross([T1(1,3); T1(2,3); T1(3,3)], [T6(1,4)-T1(1,4); T6(2,4)-T1(2,4); T6(3,4)-T1(3,4)]); T1(1,3); T1(2,3); T1(3,3)];
-        Jacobcol3=[cross([T2(1,3); T2(2,3); T2(3,3)], [T6(1,4)-T2(1,4); T6(2,4)-T2(2,4); T6(3,4)-T2(3,4)]); T2(1,3); T2(2,3); T2(3,3)];
-        Jacobcol4=[cross([T3(1,3); T3(2,3); T3(3,3)], [T6(1,4)-T3(1,4); T6(2,4)-T3(2,4); T6(3,4)-T3(3,4)]); T3(1,3); T3(2,3); T3(3,3)];
-        Jacobcol5=[cross([T4(1,3); T4(2,3); T4(3,3)], [T6(1,4)-T4(1,4); T6(2,4)-T4(2,4); T6(3,4)-T4(3,4)]); T4(1,3); T4(2,3); T4(3,3)];
-        Jacobcol6=[cross([T5(1,3); T5(2,3); T5(3,3)], [T6(1,4)-T5(1,4); T6(2,4)-T5(2,4); T6(3,4)-T5(3,4)]); T5(1,3); T5(2,3); T5(3,3)];
-        Jacob=[Jacobcol1 Jacobcol2 Jacobcol3 Jacobcol4 Jacobcol5 Jacobcol6];
-
+        
         %Physical positions of the origins of the frames to view the robot
         J6 = [T6(1,4);T6(2,4);T6(3,4)];
         J5 = [T5(1,4);T5(2,4);T5(3,4)];

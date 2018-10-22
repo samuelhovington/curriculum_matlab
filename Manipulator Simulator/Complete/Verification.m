@@ -30,17 +30,17 @@ for index = 1:length(JntPos.ans(1,:))
 %   Difference between physical angles Q and Dh algorithm angles q
     q(1) = Q1(index);
     q(2) = Q2(index)-90;
-    q(3) = Q3(index)+90;
-    q(4) = -Q4(index);
-    q(5) = -Q5(index);
-    q(6) = Q6(index);
+    q(3) = Q3(index)-90;
+    q(4) = Q4(index);
+    q(5) = Q5(index)+180;
+    q(6) = -(Q6(index)+90);
     
    
 %   Transformation matrices from the base to the joint i
     T0=[1 0 0 0; 0 -1 0 0; 0 0 -1 0; 0 0 0 1];
 
 %   DH parameters
-    DH = [0, 0, -D1, q(1); -pi/2, 0, 0, q(2); pi ,D2, -e2, q(3); 3*pi/2, 0, (D3+D4), q(4); pi/2, 0, 0, q(5); 3*pi/2, 0, -(D5+D6), q(6)];
+    DH = [0, 0, -D1, q(1); pi/2, 0, 0, q(2); pi ,D2, -e2, q(3); pi/2, 0, -(D3+D4), q(4); pi/2, 0, 0, q(5); pi/2, 0, (D5+D6), q(6)];
     
 %   Uncomment the convension of DH parameters you use
 
@@ -49,7 +49,7 @@ for index = 1:length(JntPos.ans(1,:))
 
 %   We call the function that takes angular positions and return
 %   cartesian position of each articulation. 
-    coordinates = forwardKinematicsJaco6DOFS_for_verification(q,DH,T0,Convension); 
+    coordinates = forwardKinematicsJaco6DOFS_complete(q,DH,T0,Convension); 
    
 %   We store the position of the end effector in EndEffector
     EndEffector(index,:)=coordinates(:,5);
@@ -70,9 +70,9 @@ for index = 1:length(JntPos.ans(1,:))
     set(findall(gca, 'Type', 'Line'),'LineWidth',5);
     xlabel('X')
     ylabel('Y')
-    xlim([-1 1])
-    ylim([-1 1])
-    zlim([0 1.3])
+%     xlim([-1 1])
+%     ylim([-1 1])
+%     zlim([0 1.3])
    
 %   We mark the base with a red *
     plot3(coordinates(1,1),coordinates(2,1),coordinates(3,1), '-r*')
