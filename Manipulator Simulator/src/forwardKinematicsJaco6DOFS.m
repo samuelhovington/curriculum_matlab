@@ -3,7 +3,7 @@
 %Created 2018-09-25 by Simon Michaud @Kinova
 %Modified 2018-10-05 @10:11 am
 
-function [coordinates] = forwardKinematicsJaco6DOFS(Q1, Q2, Q3, Q4, Q5, Q6)
+function [coordinates] = forwardKinematicsJaco6DOFS(Q1,Q2,Q3,Q4,Q5,Q6)
 %Difference between physical angles Q and Dh algorithm angles q
 q(1) = Q1;
 q(2) = Q2-90;

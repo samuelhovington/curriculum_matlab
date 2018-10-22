@@ -1,4 +1,4 @@
-% This file is made for testing DH parameters. Change only the sections
+% This file is made for testing your parameters. Change only the sections
 % below where it is indicate. 
 % Once the modifications are done, just run the file and see how the arm
 % move with your parameters.
@@ -32,8 +32,12 @@ e2 = 0.0098;
 
 for index = 1:length(JntPos.ans(1,:))
     
-    % ----------------------------- Make your change here -----------------------------
-    
+% ---------------------------------------------------------------------------------------------------------------
+% ----------------------------- Make your change here to test DH parameters --------------------------------------
+% ----------------------------------------------------------------------------------------------------------------
+    % Choose your convention
+    % Convention = 'Classic';
+    Convention = 'Modified';
     % Add the right value to pass from your DH frames to the real robot
     % frames 
     % Exemple : q(1) = Q1(index) + 360;
@@ -47,10 +51,10 @@ for index = 1:length(JntPos.ans(1,:))
     
     % Add your definition of the Trasformation Matrix between the world 
     % arm's frame and the first DH frames that you just created 
-    % Exemple : T0=[1   0   0   0;...
-    %               0   1   0   0;...
-    %               0   0   1   0;...
-    %               0   0   0   1];
+    T0 = [  0   0   0   0;...
+            0   0   0   0;...
+            0   0   0   0;...
+            0   0   0   0];
    
     % Define your DH parameters in the folowing matrix. You must keep the same
     % syntax for the angles q and and use the dimensions of Jaco2 with a
@@ -62,16 +66,24 @@ for index = 1:length(JntPos.ans(1,:))
             0,      0,      0,      q(3);...
             0,      0,      0,      q(4);...
             0,      0,      0,      q(5);...
-            0,      0,      0,      q(6)]  
+            0,      0,      0,      q(6)];  
    
-   
-   % ----------------------------- Do not make any change under this point -----------------------------
-    
-    
-   % We call the function that takes angular positions and return
-   % cartesian position of each articulation. 
-   coordinates = forwardKinematicsJaco6DOFS(q,DH,T0); 
-   
+% ----------------------------------------------------------------------------------------------------------------   
+% --------------------- Make the change here to test your foward kinematics --------------------------------------
+% ----------------------------------------------------------------------------------------------------------------
+
+% The fisrt line call a ready to work function that you can use to test your
+% DH parameters.
+% The second line call a function that you must complete to make it works.
+
+% Comment/Uncomment the line that correspond to your situation
+%    coordinates = forwardKinematicsJaco6DOFS_complete(q,DH,T0,Convension);
+   coordinates = forwardKinematicsJaco6DOFS_to_complete(q,DH,T0,Convension);
+
+% ----------------------------------------------------------------------------------------------------------------   
+% ------------------------------- Do not change the code a beyond this line --------------------------------------
+% ----------------------------------------------------------------------------------------------------------------
+
    % We store the position of the end effector in EndEffector
    EndEffector(index,:)=coordinates(:,5);
    
