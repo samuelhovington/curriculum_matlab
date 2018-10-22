@@ -7,7 +7,7 @@ theta_v = [180,0,180,180,180,180];
 desired_time = 1;
 
 JntPos = Jaco6DOFSTrajectoryPlannerCPV(theta_i, theta_v, theta_g, desired_time);
-Pee = load ('Pee.mat');
+% Pee = load ('Pee.mat');
 
 % Q1 = Rad2Deg.*JntPos(2,:);
 % Q2 = Rad2Deg.*JntPos(3,:);
