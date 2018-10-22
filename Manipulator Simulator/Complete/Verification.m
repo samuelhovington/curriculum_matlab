@@ -32,18 +32,19 @@ for index = 1:length(JntPos.ans(1,:))
 % ----------------------------- Make your change here to test DH parameters --------------------------------------
 % ----------------------------------------------------------------------------------------------------------------
     % Choose your convention
-    % Convention = 'Classic';
-    Convention = 'Modified';
+    Convention = 'Classic';
+%     Convention = 'Modified';
     % Add the right value to pass from your DH frames to the real robot
     % frames 
     % Exemple : q(1) = Q1(index) + 360;
     
     q(1) = Q1(index)+180;
-    q(2) = Q2(index)+90;
-    q(3) = Q3(index)+90;
+    q(2) = Q2(index)-90;
+    q(3) = Q3(index)-90;
     q(4) = Q4(index);
-    q(5) = Q5(index)+180;
-    q(6) = -(Q6(index)+90);
+    q(5) = Q5(index);
+    q(6) = (Q6(index)+90);
+    
     
     % Add your definition of the Trasformation Matrix between the world 
     % arm's frame and the first DH frames that you just created 
@@ -57,13 +58,13 @@ for index = 1:length(JntPos.ans(1,:))
     % spherical wrist just above.
     
     %       alpha   a       d           theta   
-    DH = [  0,      0,      -D1,        q(1);
-            pi/2,   0,      0,          q(2);
-            pi ,    D2,     -e2,        q(3);
+    DH = [  pi/2,   0,      -D1,        q(1);
+            pi,     -D2,      0,          q(2);
+            pi/2 ,  0,     -e2,        q(3);
             pi/2,   0,      -(D3+D4),   q(4);
             pi/2,   0,      0,          q(5);
-            pi/2,   0,      (D5+D6),    q(6)];
-    
+            pi,     0,      -(D5+D6),    q(6)];
+   
 
 % ----------------------------------------------------------------------------------------------------------------   
 % --------------------- Make the change here to test your foward kinematics --------------------------------------
@@ -101,9 +102,9 @@ for index = 1:length(JntPos.ans(1,:))
    set(findall(gca, 'Type', 'Line'),'LineWidth',5);
    xlabel('X')
    ylabel('Y')
-   xlim([-1 1])
-   ylim([-1 1])
-   zlim([0 1.3])
+%    xlim([-1 1])
+%    ylim([-1 1])
+%    zlim([0 1.3])
    
    % We mark the base with a red *
    plot3(coordinates(1,1),coordinates(2,1),coordinates(3,1), '-r*')
