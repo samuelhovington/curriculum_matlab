@@ -25,6 +25,7 @@ theta(6) = Deg2Rad * (theta(6) + 90);
 dH = [0 -D1 pi/2; -D2 0 pi; 0 -e2 pi/2; 0 -(D3 + D4) pi/2; 0 0 pi/2; 0 -(D5+D6) pi];
 
 TW0=[1 0 0 0; 0 -1 0 0; 0 0 -1 0; 0 0 0 1];
+DOF = 6;
 
 %function J = Jacobian(DOF, DH, TW0, theta)
 %% Parameters for the creation of the jacobian
@@ -55,6 +56,7 @@ J(:,1) = Jacobcol1
 for i = 1:DOF
     Jacobcol(:,:,i)=[cross([T0(1,3,i); T0(2,3,i); T0(3,3,i)], [T0(1,4,DOF)-T0(1,4,i); T0(2,4,DOF)-T0(2,4,i); T0(3,4,DOF)-T0(3,4,i)]); T0(1,3,i); T0(2,3,i); T0(3,3,i)];
 end
-for i = 2:DOF
-    J(:,i)=Jacobcol(:,:,i-1)
+for i = 1:(DOF-1)
+    J(:,i)=Jacobcol(:,:,i)
+end
 %end
