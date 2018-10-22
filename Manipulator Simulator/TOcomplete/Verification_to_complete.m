@@ -19,7 +19,7 @@ Q4 = Rad2Deg.*JntPos.ans(5,:);
 Q5 = Rad2Deg.*JntPos.ans(6,:);
 Q6 = Rad2Deg.*JntPos.ans(7,:);
 
-% Dimesions of a Jaco2 Spherical wrist
+% Dimensions of a Jaco2 Spherical wrist
 D1 = 0.2755;
 D2 = 0.4100;
 D3 = 0.2073;
@@ -77,8 +77,9 @@ for index = 1:length(JntPos.ans(1,:))
 % The second line call a function that you must complete to make it works.
 
 % Comment/Uncomment the line that correspond to your situation
-%    coordinates = forwardKinematicsJaco6DOFS_complete(q,DH,T0,Convension);
-   coordinates = forwardKinematicsJaco6DOFS_to_complete(q,DH,T0,Convension);
+
+   coordinates = forwardKinematicsJaco6DOFS_complete(q,DH,T0,Convension);
+%    coordinates = forwardKinematicsJaco6DOFS_to_complete(q,DH,T0,Convension);
 
 % ----------------------------------------------------------------------------------------------------------------   
 % ------------------------------- Do not change the code a beyond this line --------------------------------------
