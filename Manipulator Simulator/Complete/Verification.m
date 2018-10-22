@@ -70,9 +70,9 @@ for index = 1:length(JntPos.ans(1,:))
     set(findall(gca, 'Type', 'Line'),'LineWidth',5);
     xlabel('X')
     ylabel('Y')
-%     xlim([-1 1])
-%     ylim([-1 1])
-%     zlim([0 1.3])
+    xlim([-1 1])
+    ylim([-1 1])
+    zlim([0 1.3])
    
 %   We mark the base with a red *
     plot3(coordinates(1,1),coordinates(2,1),coordinates(3,1), '-r*')
