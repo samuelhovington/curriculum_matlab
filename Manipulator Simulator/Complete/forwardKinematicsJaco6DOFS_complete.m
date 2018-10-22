@@ -55,8 +55,10 @@ function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
         %Physical positions of the origins of the frames to view the robot
         J6 = [T0(1,4,6);T0(2,4,6);T0(3,4,6)];
         J5 = [T0(1,4,5);T0(2,4,5);T0(3,4,5)];
+        J4 = [T0(1,4,4);T0(2,4,4);T0(3,4,4)];
         J3 = [T0(1,4,3);T0(2,4,3);T0(3,4,3)];
+        J2 = [T0(1,4,2);T0(2,4,2);T0(3,4,2)];
         J1 = [T0(1,4,1);T0(2,4,1);T0(3,4,1)];
         J0 = [T0(1,4);T0(2,4);T0(3,4)];
-        coordinates = [J0,J1,J3,J5,J6];
+        coordinates = [J0,J1,J2,J3,J4,J5,J6];
 end

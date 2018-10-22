@@ -84,7 +84,7 @@ for index = 1:length(JntPos.ans(1,:))
 % ----------------------------------------------------------------------------------------------------------------
 
    % We store the position of the end effector in EndEffector
-   EndEffector(index,:)=coordinates(:,5);
+   EndEffector(index,:)=coordinates(:,7);
    
    % We create the figure where the robot will be shown
    figure(1)
