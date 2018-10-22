@@ -1,6 +1,6 @@
 close all; clc;
-addpath(genpath('C:\Users\shovington\Documents\GitHub\curriculum_matlab'))
-cd 'C:\Users\shovington\Documents\GitHub\curriculum_matlab\Manipulator Simulator'
+addpath(genpath('C:\Users\smichaud\Documents\GitHub\curriculum_matlab'))
+cd 'C:\Users\smichaud\Documents\GitHub\curriculum_matlab\Manipulator Simulator'
 
 Rad2Deg = 180/pi;
 
