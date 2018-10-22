@@ -28,9 +28,9 @@ e2 = 0.0098;
 
 for index = 1:length(JntPos.ans(1,:))
 %   Difference between physical angles Q and Dh algorithm angles q
-    q(1) = Q1(index);
-    q(2) = Q2(index)-90;
-    q(3) = Q3(index)-90;
+    q(1) = Q1(index)+180;
+    q(2) = Q2(index)+90;
+    q(3) = Q3(index)+90;
     q(4) = Q4(index);
     q(5) = Q5(index)+180;
     q(6) = -(Q6(index)+90);
@@ -70,9 +70,9 @@ for index = 1:length(JntPos.ans(1,:))
     set(findall(gca, 'Type', 'Line'),'LineWidth',5);
     xlabel('X')
     ylabel('Y')
-%     xlim([-1 1])
-%     ylim([-1 1])
-%     zlim([0 1.3])
+    xlim([-1 1])
+    ylim([-1 1])
+    zlim([0 1.3])
    
 %   We mark the base with a red *
     plot3(coordinates(1,1),coordinates(2,1),coordinates(3,1), '-r*')
