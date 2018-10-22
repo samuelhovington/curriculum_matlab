@@ -3,9 +3,9 @@
 %Modifications
 
 clear all;
-% theta = [90,270,90,270,270,270];
+theta = [180,270,90,270,270,270];
 % theta = [180, 180,180,180,180,180];
-theta = [238,238,100,210,200,0];
+% theta = [238,238,100,210,200,0];
 %% Variables pour la cinematique du robot    
 q(1) = theta(1);
 q(2) = theta(2)-90;

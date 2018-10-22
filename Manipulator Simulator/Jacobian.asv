@@ -1,0 +1,35 @@
+%Function that takes the number of DOF, the classic DH parameters, the
+%transformation matrix between the robot's world frame and the frame 0 and
+%the angular position of the robot in angles of the DH algorithm
+%Created on 2018-10-22 by Simon Michaud @Kinova
+%Modifications
+
+function J = Jacobian(DOF, DH, T0, theta)
+%% Parameters for the creation of the jacobian
+for i=1:DOF
+   alpha(i) = DH(i,1);
+   d(i) = DH(i,3);
+   a(i) = DH(i,2);
+end
+
+
+%% Creation of the transformation matrices between frames
+    for i=1:DOF
+        T(:,:,i)=[cos(theta(i)) -sin(theta(i))*cos(alpha(i)) sin(theta(i))*sin(alpha(i)) a(i)*cos(theta(i));...
+            sin(theta(i)) cos(alpha(i))*cos(theta(i)) -cos(theta(i))*sin(alpha(i)) a(i)*sin(theta(i)); ...
+            0 sin(alpha(i)) cos(alpha(i)) d(i);...
+            0 0 0 1];
+    end
+
+%% Creation of the transformation matrices from the world frame of the robot
+T0(:,:,1) = T0 *T(:,:,1);
+    for i = 2:DOF
+        T0(:,:,i) = T0(:,:,i-1) *T(:,:,i);
+    end
+
+%% Creation of the Jacobian
+
+for i = 1:DOF
+Jacobcol(i)=[cross([T0(1,3,i); T0(2,3,i); T0(3,3,i)], [T0(1,4,DOF)-T0(1,4,i); T0(2,4,DOF)-T0(2,4,i); T0(3,4,DOF)-T0(3,4,i)]); T0(1,3,i); T0(2,3,i); T0(3,3,i)];
+Jacobian(:,i)=Jacobcol(i)
+end
