@@ -6,26 +6,11 @@
 function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
     
     % store the DH parameters into variable to make it clearer
-    alpha(1)=DH(1,1);
-    alpha(2)=DH(2,1);
-    alpha(3)=DH(3,1);
-    alpha(4)=DH(4,1);
-    alpha(5)=DH(5,1);
-    alpha(6)=DH(6,1);
-
-    d(1)=DH(1,3);
-    d(2)=DH(2,3);
-    d(3)=DH(3,3);
-    d(4)=DH(4,3);
-    d(5)=DH(5,3);
-    d(6)=DH(6,3);
-
-    a(1)=DH(1,2);
-    a(2)=DH(2,2);
-    a(3)=DH(3,2);
-    a(4)=DH(4,2);
-    a(5)=DH(5,2);
-    a(6)=DH(6,2);
+    for i=1:6
+       alpha(i) = DH(i,1);
+       d(i) = DH(i,3);
+       a(i) = DH(i,2);
+   end
         
     if strcmp(convension,'Modified')
     % ----------------------------------------------------------------------------------------------------------------
@@ -39,8 +24,6 @@ function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
                             0 0 0 0 ...
                             0 0 0 0];
             end
-
-    end
 
     elseif strcmp(convension, 'Classic')
 
