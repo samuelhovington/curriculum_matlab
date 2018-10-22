@@ -78,8 +78,8 @@ for index = 1:length(JntPos.ans(1,:))
 
 % Comment/Uncomment the line that correspond to your situation
 
-   coordinates = forwardKinematicsJaco6DOFS_complete(q,DH,T0,Convension);
-%    coordinates = forwardKinematicsJaco6DOFS_to_complete(q,DH,T0,Convension);
+   coordinates = forwardKinematicsJaco6DOFS_complete(q,DH,T0,Convention);
+%    coordinates = forwardKinematicsJaco6DOFS_to_complete(q,DH,T0,Convention);
 
 % ----------------------------------------------------------------------------------------------------------------   
 % ------------------------------- Do not change the code a beyond this line --------------------------------------
@@ -97,10 +97,10 @@ for index = 1:length(JntPos.ans(1,:))
    hold on
    
    % We set the display settings
+   title('Animation of the arm moving')
    view(150,40) 
    set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
    axis equal
-   grid on
    set(findall(gca, 'Type', 'Line'),'LineWidth',5);
    xlabel('X')
    ylabel('Y')
