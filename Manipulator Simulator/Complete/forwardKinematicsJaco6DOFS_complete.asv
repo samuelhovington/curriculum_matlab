@@ -4,7 +4,11 @@
 %Modified 2018-10-05 @10:11 am
 
 function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
-       
+   for i=1:6
+       alpha(i) = DH(i,3);
+       d(i) = DH(i,2);
+       a(i) = DH(i,1);
+   end    
     alpha(1)=DH(1,1);
     alpha(2)=DH(2,1);
     alpha(3)=DH(3,1);
@@ -26,7 +30,7 @@ function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
     a(5)=DH(5,2);
     a(6)=DH(6,2);
 
-    if convension == 'Modified'
+    if strcmp(convension,'Modified')
         %Transformation matrix ^{n-1}T^{n}
         for i=1:6
             T(:,:,i)=[cosd(q(i)) -sind(q(i)) 0 a(i);...
@@ -35,28 +39,30 @@ function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
                 0 0 0 1];
         end
 
-    elseif convension == 'Classic'
+    elseif strcmp(convension, 'Classic')
         
         %Transformation matrix ^{n-1}T^{n}
         for i=1:6
-            T(:,:,i)=[cosd(theta(i)) -sind(theta(i))*cos(alpha(i)) sind(theta(i))*sin(alpha(i)) a(i)*cosd(theta(i));...
-                sind(theta(i)) cos(alpha(i))*cosd(theta(i)) -cosd(theta(i))*sin(alpha(i)) a(i)*sind(theta(i)); ...
+            T(:,:,i)=[cosd(q(i)) -sind(q(i))*cos(alpha(i)) sind(q(i))*sin(alpha(i)) a(i)*cosd(q(i));...
+                sind(q(i)) cos(alpha(i))*cosd(q(i)) -cosd(q(i))*sin(alpha(i)) a(i)*sind(q(i)); ...
                 0 sin(alpha(i)) cos(alpha(i)) d(i);...
                 0 0 0 1];
         end
     end
-        %Transformation matrices from the base to the joint i
-        % T0=[1 0 0 0; 0 -1 0 0; 0 0 -1 0; 0 0 0 1];
+    %Transformation matrices from the base to the joint i
+    % T0=[1 0 0 0; 0 -1 0 0; 0 0 -1 0; 0 0 0 1];
     T0(:,:,1) = T0 *T(:,:,1);
     for i = 2:6
         T0(:,:,i) = T0(:,:,i-1) *T(:,:,i);
     end
         
         %Physical positions of the origins of the frames to view the robot
-        J6 = [T6(1,4);T6(2,4);T6(3,4)];
-        J5 = [T5(1,4);T5(2,4);T5(3,4)];
-        J3 = [T3(1,4);T3(2,4);T3(3,4)];
-        J1 = [T1(1,4);T1(2,4);T1(3,4)];
+        J6 = [T0(1,4,6);T0(2,4,6);T0(3,4,6)];
+        J5 = [T0(1,4,5);T0(2,4,5);T0(3,4,5)];
+        J4 = [T0(1,4,4);T0(2,4,4);T0(3,4,4)];
+        J3 = [T0(1,4,3);T0(2,4,3);T0(3,4,3)];
+        J2 = [T0(1,4,2);T0(2,4,2);T0(3,4,2)];
+        J1 = [T0(1,4,1);T0(2,4,1);T0(3,4,1)];
         J0 = [T0(1,4);T0(2,4);T0(3,4)];
-        coordinates = [J0,J1,J3,J5,J6];
+        coordinates = [J0,J1,J2,J3,J4,J5,J6];
 end
