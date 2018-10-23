@@ -3,15 +3,11 @@
 %Modifications 2018-10-09
 
 function trajectory = Jaco6DOFSTrajectoryPlannerCP(theta_i, theta_g, desired_time)
-
-% theta_i = [180,180,180,180,180,180];
-% theta_g = [182, 189, 184, 110, 182,182];
-% desired_time = 1;
-
 JOINTS = 6;
 
 h = desired_time/(desired_time*100);
 
+%Definition of the parameters going into the equations
 for i=1:JOINTS
    a0(i) = theta_i(i);
    a1(i) = 0;
@@ -19,6 +15,7 @@ for i=1:JOINTS
    a3(i) = -(2/desired_time^3)*(theta_g(i) - theta_i(i));
 end
 
+%Generating the trajectory
 j= 1;
 for t=0+h:h:desired_time
    trajectory(1,j) = t;

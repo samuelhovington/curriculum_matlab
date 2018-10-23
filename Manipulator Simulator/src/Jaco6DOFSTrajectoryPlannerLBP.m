@@ -1,21 +1,20 @@
 %Created on 2018-10-22 by Simon Michaud @Kinova
 %Modified on 2018-10-23
+%Function that receives two angles and that generates a trajectory to
+%generate the movement between those two points
 
 function trajectory = Jaco6DOFSTrajectoryPlannerLBP(theta_i, theta_g, T)
-% clear all;
-
-% theta_i = [180,180,180,180,180,180];
-% theta_g = [180,190,180,180,180,180];
-% % theta_i = 180;
-% % theta_g = 190;
-% T = 2;
     JOINTS = 6;
-    ta = T/3;
-    h = T/(T*100);
-
-    L = theta_g - theta_i;
-    dtheta = 3*L/(2*T);
-    ddtheta = 9*L/(2*T^2);
+    % Definition of the time parameters
+    ta = T/3;               %ta is the time in the acceleration blend
+    h = T/(T*100);          %h is the time step for the trajectory matrix
+    
+    %Definition of the parameters of the algorithm
+    L = theta_g - theta_i;  %Displacement
+    dtheta = 3*L/(2*T);     %Velocity at the end of the first blend and the linear part
+    ddtheta = 9*L/(2*T^2);  %Acceleration in the blend
+    
+    % Parameters entered in the trajectory equation
     for i = 1: JOINTS
         a0(i) = theta_i(i);
         a1(i) = 0;
@@ -26,6 +25,8 @@ function trajectory = Jaco6DOFSTrajectoryPlannerLBP(theta_i, theta_g, T)
         c1(i) = dtheta(i)*T/ta;
         c2(i) = -dtheta(i)/(2*ta);
     end
+    
+    % Generation of the trajectory
     j= 1;
     for t=0+h:h:T
        trajectory(1,j) = t;
