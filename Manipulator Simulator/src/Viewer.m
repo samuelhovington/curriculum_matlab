@@ -2,11 +2,11 @@ clear all; close all; clc;
 Rad2Deg = 180/pi;
 
 theta_i = [180,180,180,180,180,180];
-theta_g = [180,180,180,180,180,180];
+theta_g = [180,0,180,90,270,210];
 theta_v = [180,0,180,180,180,180];
 desired_time = 1;
 
-JntPos = Jaco6DOFSTrajectoryPlannerCPV(theta_i, theta_v, theta_g, desired_time);
+JntPos = Jaco6DOFSTrajectoryPlannerCP(theta_i, theta_g, desired_time);
 % Pee = load ('Pee.mat');
 
 % Q1 = Rad2Deg.*JntPos(2,:);
