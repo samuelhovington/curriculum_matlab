@@ -30,7 +30,6 @@ function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
         end
     end
     %Transformation matrices from the base to the joint i
-    % T0=[1 0 0 0; 0 -1 0 0; 0 0 -1 0; 0 0 0 1];
     T0(:,:,1) = T0 *T(:,:,1);
     for i = 2:6
         T0(:,:,i) = T0(:,:,i-1) *T(:,:,i);
