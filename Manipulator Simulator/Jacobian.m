@@ -4,12 +4,13 @@
 %Created on 2018-10-22 by Simon Michaud @Kinova
 %Modifications
 
-function J = Jacobian(DOF, DH, TW0, theta)
+function J = Jacobian(DOF, DH, TW0)
 %% Parameters for the creation of the jacobian
 for i=1:DOF
    alpha(i) = DH(i,3);
    d(i) = DH(i,2);
    a(i) = DH(i,1);
+   theta(i) = DH(i,4);
 end
 
 
@@ -34,6 +35,6 @@ for i = 1:DOF
 end
 
 for i = 1:(DOF-1)
-    J(:,i+1)=Jacobcol(:,1,i)
+    J(:,i+1)=Jacobcol(:,1,i);
 end
 end

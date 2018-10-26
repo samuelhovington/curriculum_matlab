@@ -1,8 +1,7 @@
 %Function that takes the number of DOF, the classic DH parameters, the
 %transformation matrix between the robot's world frame and the frame 0 and
 %the angular position of the robot in angles of the DH algorithm
-%Created on 2018-10-22 by Simon Michaud @Kinova
-%Modifications
+
 
 function J = Jacobian(DOF, DH, TW0, theta)
 % Parameters for the creation of the jacobian

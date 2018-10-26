@@ -2,11 +2,11 @@
 %Creation: 2018-10-09
 %Modifications 2018-10-09
 
-function trajectory = Jaco6DOFSTrajectoryPlanner(theta_i, theta_g, desired_time)
+%function trajectory = Jaco6DOFSTrajectoryPlanner(theta_i, theta_g, desired_time)
 
-% theta_i = [180,180,180,180,180,180];
-% theta_g = [182, 189, 184, 110, 182,182];
-% desired_time = 1;
+theta_i = [180,180,180,180,180,180];
+theta_g = [182, 189, 184, 110, 182,182];
+desired_time = 1;
 
 JOINTS = 6;
 
@@ -32,5 +32,15 @@ for t=0+h:h:desired_time
    end
    j= j+1;
 end
+figure(1)
+yyaxis left
+plot(trajectory(1,:), trajectory(3,:))
+yyaxis right
+plot(joint_velocity(1,:), joint_velocity(3,:), 'r')
+hold on
+plot(joint_acceleration(1,:), joint_acceleration(3,:), 'r')
 
-end
+xlabel('time')
+legend('Anglular Position', 'Angular Velocity', 'Angular Acceleration')
+title('Trajectory of Joint 2 as a Function of Time')
+%end

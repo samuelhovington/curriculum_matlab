@@ -3,7 +3,7 @@
 %Created 2018-09-25 by Simon Michaud @Kinova
 %Modified 2018-10-05 @10:11 am
 
-function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
+function [coordinates] = forwardKinematicsJaco6DOFS_complete(q,DH,T0,convension)
    for i=1:6
        alpha(i) = DH(i,1);
        d(i) = DH(i,3);
@@ -27,12 +27,15 @@ function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
                 sind(q(i)) cos(alpha(i))*cosd(q(i)) -cosd(q(i))*sin(alpha(i)) a(i)*sind(q(i)); ...
                 0 sin(alpha(i)) cos(alpha(i)) d(i);...
                 0 0 0 1];
+            
         end
     end
     %Transformation matrices from the base to the joint i
     T0(:,:,1) = T0 *T(:,:,1);
     for i = 2:6
-        T0(:,:,i) = T0(:,:,i-1) *T(:,:,i);
+         T0(:,:,i) = T0(:,:,i-1) *T(:,:,i);
+         R0(:,:,i) = [T0(1,1,i), T0(1,2,i), T0(1,3,i);T0(2,1,i),T0(2,2,i),T0(2,3,i);T0(3,1,i),T0(3,2,i),T0(3,3,i)];
+         ri_0(:,:,i) = [T0(1,4,i), T0(2,4,i), T0(3,4,i)];
     end
         
         %Physical positions of the origins of the frames to view the robot
@@ -44,4 +47,12 @@ function [coordinates] = forwardKinematicsJaco6DOFS(q,DH,T0,convension)
         J1 = [T0(1,4,1);T0(2,4,1);T0(3,4,1)];
         J0 = [T0(1,4);T0(2,4);T0(3,4)];
         coordinates = [J0,J1,J2,J3,J4,J5,J6];
+    
+        
+    %Definition of the rotation matrices and the position vectors from the
+    %transformation matrix to obtain the position and orientation of the
+    %effector
+    r6_0 = [T0(1,4,6); T0(2,4,6); T0(3,4,6)];
+    EulerXYZ = MatRotationToEuler(R0(:,:,6));
+    X = [r6_0;EulerXYZ]
 end

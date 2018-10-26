@@ -2,7 +2,7 @@
 %Creation: 2018-10-03
 %Modifications 2018-10-09
 
-%function tao = Jaco6DOFSDynamics(theta, dtheta, ddtheta)
+%function tau = Jaco6DOFSDynamics(theta, dtheta, ddtheta)
 clear all;
 theta = [180,270,180,270,270,270];
 dtheta = [0,0,0,0,0,0];
@@ -124,15 +124,15 @@ dw(:,:,1) = Ri1_i(:,:,1)*dw0 + cross(Ri1_i(:,:,1)*w0,dtheta(1)*uz(:,:,1)) + ddth
 dv(:,:,1) = Ri1_i(:,:,1)*(cross(dw0, transpose(Pi_i1(:,:,1))) + cross(w0, cross(w0, transpose(Pi_i1(:,:,1))))+dv0);
 dvcm(:,:,1) = cross(dw(:,:,1),transpose(Pi_cm(:,:,1)))+ cross(w(:,:,1), cross(w(:,:,1),transpose(Pi_cm(:,:,1))))+dv(:,:,1);
 F(:,:,1) = m(1)*dvcm(:,:,1);
-N(:,:,1) = I(:,:,1)*dw(:,:,1)+cross(w(:,:,1), I(:,:,1)*w(:,:,1));
+N(:,:,1) = I(:,:,1)*dw(:,:,1)+cross(w(:,:,1.3), I(:,:,1)*w(:,:,1));
 
-for i=2:6
-    w(:,:,i) = Ri1_i(:,:,i)*w(:,:,i-1) + dtheta(i)*uz(:,:,i);
-    dw(:,:,i) = Ri1_i(:,:,i)*dw(:,:,i-1) + cross(Ri1_i(:,:,i)*w(:,:,i-1), dtheta(i)*uz(:,:,i)) +  ddtheta(i)*uz(:,:,i);
-    dv(:,:,i) = Ri1_i(:,:,i)*(cross(dw(:,:,i-1), transpose(Pi_i1(:,:,i))) + cross(w(:,:,i-1), cross(w(:,:,i-1), transpose(Pi_i1(:,:,i))))+dv(:,:,i-1));
-    dvcm(:,:,i) = cross(dw(:,:,i),transpose(Pi_cm(:,:,i)))+ cross(w(:,:,i), cross(w(:,:,i),transpose(Pi_cm(:,:,i))))+dv(:,:,i);
-    F(:,:,i) = m(i)*dvcm(:,:,i);
-    N(:,:,i) = I(:,:,i)*dw(:,:,i)+cross(w(:,:,i), I(:,:,i)*w(:,:,i));
+for i=1:5
+    w(:,:,i+1) = Ri1_i(:,:,i)*w(:,:,i) + dtheta(i+1)*uz(:,:,i+1);
+    dw(:,:,i+1) = Ri1_i(:,:,i)*dw(:,:,i) + cross(Ri1_i(:,:,i)*w(:,:,i), dtheta(i+1)*uz(:,:,i+1)) +  ddtheta(i+1)*uz(:,:,i+1);
+    dv(:,:,i+1) = Ri1_i(:,:,i)*(cross(dw(:,:,i), transpose(Pi_i1(:,:,i+1))) + cross(w(:,:,i), cross(w(:,:,i), transpose(Pi_i1(:,:,i+1))))+dv(:,:,i));
+    dvcm(:,:,i+1) = cross(dw(:,:,i+1),transpose(Pi_cm(:,:,i+1)))+ cross(w(:,:,i+1), cross(w(:,:,i+1),transpose(Pi_cm(:,:,i+1))))+dv(:,:,i+1);
+    F(:,:,i+1) = m(i)*dvcm(:,:,i+1);
+    N(:,:,i+1) = I(:,:,i+1)*dw(:,:,i+1)+cross(w(:,:,i+1), I(:,:,i+1)*w(:,:,i+1));
 end
 
 f(:,:,6) = Ri_i1(:,:,6)*[0;0;0] + F(:,:,6);

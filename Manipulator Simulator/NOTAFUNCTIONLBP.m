@@ -2,9 +2,15 @@
 %Modified on 2018-10-23
 %Function that receives two angles and that generates a trajectory to
 %generate the movement between those two points
+clear all
+%function trajectory = Jaco6DOFSTrajectoryPlannerLBP(theta_i, theta_g, T)
+theta_i = [180,180,180,180,180,180];
+theta_g = [90,270,90,270,270,270];
+T = 1;
+JOINTS = 6;
+   
 
-function trajectory = Jaco6DOFSTrajectoryPlannerLBP(theta_i, theta_g, T)
-    JOINTS = 6;
+JOINTS = 6;
     % Definition of the time parameters
     ta = T/3;               %ta is the time in the acceleration blend
     h = T/(T*100);          %h is the time step for the trajectory matrix
@@ -51,5 +57,15 @@ function trajectory = Jaco6DOFSTrajectoryPlannerLBP(theta_i, theta_g, T)
 
        j = j+1; 
     end
+figure(1)
+yyaxis left
+plot(trajectory(1,:), trajectory(2,:))
+yyaxis right
+plot(joint_velocity(1,:), joint_velocity(2,:), 'r')
+hold on
+plot(joint_acceleration(1,:), joint_acceleration(2,:), 'r')
 
-end
+xlabel('time')
+legend('Anglular Position', 'Angular Velocity', 'Angular Acceleration')
+title('Trajectory of Joint 1 as a Function of Time')
+%end
