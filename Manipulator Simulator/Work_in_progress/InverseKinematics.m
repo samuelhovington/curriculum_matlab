@@ -7,7 +7,7 @@ clear all;
 convention = 'modified';
 DOF = 6;
 theta = [235.15,187.47,101.8,276.27,235.13,0];
-%% Foward kinematics fo the robot   
+%% Forward kinematics fo the robot   
 D1 = 0.2755;
 D2 = 0.4100;
 D3 = 0.2073;
@@ -37,18 +37,17 @@ Pgoal = [0.5;-0.25;0.7;-2;1.5;1.9];
 dX = Pgoal-Pcurr;
 dTheta = inv(J)*dX;
 q = transpose(q) + dTheta;
-Pcurr = FKforIK(DOF, convention, DH, TW0,q);
-Err = Pgoal-Pcurr;
+Pcurr = FKforIK(DOF, convention, DH, TW0, q);
+dX = Pgoal-Pcurr;
 j = 1;
 
 % while max(Err)>0.001
 
-for i=1:10
+for i=1:100
     dX = Pgoal-Pcurr;
-    dTheta = inv(J)*dX;
+    dTheta = transpose(J)*dX;
     q = transpose(q) + dTheta;
     Pcurr = FKforIK(DOF, convention, DH, TW0,q)
-    Err = Pgoal-Pcurr;
     j = j+1
 end
 
