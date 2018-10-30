@@ -28,7 +28,7 @@ Pcurr(:,:,1) = FKforIK(DOF, convention, DH, TW0,q)
 % end
 
 %% Inverse Kinematics
-Pgoal = [0.5;-0.25;0.7;-2;1.5;1.9];
+Pgoal = [0.5;-0.25;0.7;-2.0078;1.4999;1.8916];
 P = FKforIK(DOF, convention, DH, TW0, q);
 
 %     dX(:,:,1) = Pgoal-Pcurr(:,:,1);
@@ -41,16 +41,13 @@ j = 1;
 % while max(Err)>0.001
 for ii=1:100
     dX(1:3,:,ii) = Pgoal(1:3)-Pcurr(1:3,:,ii)
-    Rgoal=EulerXYZtoRot(Pgoal(4:6))
+    Rgoal=EulerXYZtoRot(Pgoal(4:6));
     Rcurr=EulerXYZtoRot(Pcurr(4:6,:,ii));
     %matrix differential rule: delta_R=Omega*Rcurr. So Omega =
     %delta_R*inv(Rcurr)
     delta_R=Rgoal-Rcurr;
     Omega=delta_R/Rcurr; %equivalent in Matlab to delta_R* inv(Rcurr);
-    dX(4,:,ii)=(Omega(2,3)-Omega(3,2))/2;
-    dX(5,:,ii)=(Omega(3,1)-Omega(1,3))/2;
-    dX(6,:,ii)=(Omega(1,2)-Omega(2,1))/2;
-    dX
+    dX(4)=
     J = Jacobian(DOF, DH, TW0,q(:,:,ii))
     dTheta(:,:,ii) = inv(J)*dX(:,:,ii)
     q(:,:,ii+1) = q(:,:,ii) + dTheta(:,:,ii);

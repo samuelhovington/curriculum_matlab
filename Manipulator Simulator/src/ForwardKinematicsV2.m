@@ -6,6 +6,7 @@ clear all;
 theta = [180,270,90,270,270,270];
 % theta = [180, 180,180,180,180,180];
 % theta = [238,238,100,210,200,0];
+theta = [235.15,187.47,101.8,276.27,235.13,0];
 %% Variables pour la cinematique du robot    
 q(1) = theta(1);
 q(2) = theta(2)-90;
@@ -76,7 +77,9 @@ for i = 1:6
    uy(:,:,i) = transpose([T0(1,4,i), T0(2,4,i), T0(3,4,i)]) + R0(:,:,i)*[0;0.1;0]; 
    uz(:,:,i) = transpose([T0(1,4,i), T0(2,4,i), T0(3,4,i)]) + R0(:,:,i)*[0;0;0.1]; 
 end
-
+Eul = MatRotationToEuler(R0(:,:,6))
+Rot = EulerXYZtoRot(Eul)
+Rot2  =EulerXYZtoRot([2.98;1.52;-3.10])
 %% plot 
 figure(1)
 plot3([ 0 T0(1,4,1) T0(1,4,2) T0(1,4,3) T0(1,4,4) T0(1,4,5) T0(1,4,6)],[0  T0(2,4,1) T0(2,4,2) T0(2,4,3) T0(2,4,4) T0(2,4,5) T0(2,4,6)],[0 T0(3,4,1) T0(3,4,2) T0(3,4,3) T0(3,4,4) T0(3,4,5) T0(3,4,6)], 'g')

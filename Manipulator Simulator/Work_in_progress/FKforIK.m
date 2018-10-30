@@ -16,9 +16,9 @@ function FK = FKforIK(DOF, convention, DH, TW0, q)
 %DH = [0, 0, -D1, q(1); pi/2, 0, 0, q(2); pi ,D2, -e2, q(3); pi/2, 0, -(D3+D4), q(4); pi/2, 0, 0, q(5); pi/2, 0, (D5+D6), q(6)];
  
 for i=1:DOF
-       alpha(i) = DH(i,1);
-       d(i) = DH(i,3);
-       a(i) = DH(i,2);
+       alpha(i) = DH(i,3);
+       d(i) = DH(i,2);
+       a(i) = DH(i,1);
 %        q(i) = DH(i,4);
    end    
  
@@ -26,8 +26,8 @@ for i=1:DOF
 %% Creation des matrices de rotation et de transformation entre les frames
 for i=1:DOF
     if strcmp(convention, 'classic')
-        T(:,:,i)=[cosd(q(i)) -sind(q(i))*cos(alpha(i)) sind(q(i))*sin(alpha(i)) a(i)*cosd(q(i));...
-                sind(q(i)) cos(alpha(i))*cosd(q(i)) -cosd(q(i))*sin(alpha(i)) a(i)*sind(q(i)); ...
+        T(:,:,i)=[cos(q(i)) -sin(q(i))*cos(alpha(i)) sin(q(i))*sin(alpha(i)) a(i)*cos(q(i));...
+                sin(q(i)) cos(alpha(i))*cos(q(i)) -cos(q(i))*sin(alpha(i)) a(i)*sin(q(i)); ...
                 0 sin(alpha(i)) cos(alpha(i)) d(i);...
                 0 0 0 1];
     elseif strcmp(convention, 'modified')
@@ -57,7 +57,7 @@ for i = 1:DOF
    uy(:,:,i) = transpose([T0(1,4,i), T0(2,4,i), T0(3,4,i)]) + R0(:,:,i)*[0;0.1;0]; 
    uz(:,:,i) = transpose([T0(1,4,i), T0(2,4,i), T0(3,4,i)]) + R0(:,:,i)*[0;0;0.1]; 
 end
-EulerXYZ = MatRotationToEuler(R0(:,:,i));
+EulerXYZ = MatRotationToEuler(R0(:,:,6));
 FK = [Pi_0(1,1,6);Pi_0(1,2,6);Pi_0(1,3,6);EulerXYZ(1);EulerXYZ(2);EulerXYZ(3)];
 end
 %% plot 

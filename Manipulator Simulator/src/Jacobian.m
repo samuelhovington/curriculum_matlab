@@ -4,13 +4,13 @@
 %Created on 2018-10-22 by Simon Michaud @Kinova
 %Modifications
 
-function J = Jacobian(DOF, DH, TW0)
+function J = Jacobian(DOF, DH, TW0,theta)
 %% Parameters for the creation of the jacobian
 for i=1:DOF
    alpha(i) = DH(i,3);
    d(i) = DH(i,2);
    a(i) = DH(i,1);
-   theta(i) = DH(i,4);
+%    theta(i) = DH(i,4);
 end
 
 

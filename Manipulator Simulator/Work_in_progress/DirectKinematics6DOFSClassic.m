@@ -12,13 +12,13 @@ D6 = 0.16;
 e2 = 0.0098;
 Deg2Rad = pi/180;
 
-theta(1) = Deg2Rad * (theta(1) + 180);
-theta(2) = Deg2Rad * (theta(2) - 90);
-theta(3) = Deg2Rad * (theta(3) - 90);
+ theta(1) = Deg2Rad * (theta(1) + 180);
+theta(2) = Deg2Rad * (theta(2) +90);
+theta(3) = Deg2Rad * (theta(3) + 90);
 theta(4) = Deg2Rad * theta(4);
 theta(5) = Deg2Rad * theta(5);
-theta(6) = Deg2Rad * (theta(6) + 90);
-dH = [0 -D1 pi/2; -D2 0 pi; 0 -e2 pi/2; 0 -(D3 + D4) pi/2; 0 0 pi/2; 0 -(D5+D6) pi];
+theta(6) = Deg2Rad * (theta(6) - 90);
+dH = [0 -D1 pi/2; D2 0 pi; 0 -e2 pi/2; 0 -(D3 + D4) pi/2; 0 0 pi/2; 0 -(D5+D6) pi];
     
 
 alpha(1)=dH(1,3);
