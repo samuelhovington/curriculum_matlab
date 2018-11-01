@@ -55,9 +55,7 @@ for i=1:6
         sind(q(i))*cos(alpha(i)) cos(alpha(i))*cosd(q(i)) -sin(alpha(i)) -d(i)*sin(alpha(i)); ...
         sind(q(i))*sin(alpha(i)) cosd(q(i))*sin(alpha(i)) cos(alpha(i)) d(i)*cos(alpha(i));...
         0 0 0 1];
-    Ri_i1(:,:,i) = [cosd(q(i)) -sind(q(i)) 0;...
-        sind(q(i))*cos(alpha(i)) cos(alpha(i))*cosd(q(i)) -sin(alpha(i)) ; ...
-        sind(q(i))*sin(alpha(i)) cosd(q(i))*sin(alpha(i)) cos(alpha(i))];
+    Ri_i1(:,:,i) = [T(1:3,1,i), T(1:3,2,i), T(1:3,3,i)];
     Ri1_i(:,:,i) = transpose(Ri_i1(:,:,i));
            
 end
@@ -69,7 +67,7 @@ R0(:,:,1) = R0*Ri_i1(:,:,1);
 Pi_i1(:,:,1) = [T0(1,4,1), T0(2,4,1), T0(3,4,1)];
 for i = 2:6
     T0(:,:,i) = T0(:,:,i-1) *T(:,:,i);
-    R0(:,:,i) = R0(:,:,i-1)*Ri_i1(:,:,i);
+    R0(:,:,i) = [T0(1:3,1,i), T0(1:3,2,i), T0(1:3,3,i)];
     Pi_i1(:,:,i) = [T0(1,4,i), T0(2,4,i), T0(3,4,i)];
 end
 %% Vecteurs unitaires des differentes bases vectorielles

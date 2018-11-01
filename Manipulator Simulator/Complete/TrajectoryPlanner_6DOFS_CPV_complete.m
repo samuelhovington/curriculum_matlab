@@ -3,7 +3,7 @@
 %Modifications 2018-10-18
 %Trajectory planner with 1 via point in the middle
 
-function trajectory = Jaco6DOFSTrajectoryPlannerCPV(theta_i, theta_v, theta_g, desired_time)
+function trajectory = TrajectoryPlanner_6DOFS_CPV_complete(theta_i, theta_v, theta_g, desired_time)
 
 JOINTS = 6;
 

@@ -1,9 +1,14 @@
+%Function made to execute the foward kinematics necessary for inverse
+%kinematics. It recieves the standard arguments for foward kinematics
+%functions but instead of returning T0_6 is returns the position and
+%ortientation vector which is a 6x1 vector.
+
 %Simon Michaud
 %Creation: 2018-10-05
 %Modifications 2018-10-22
 
 %% Function definition
-function FK = FKforIK(DOF, convention, DH, TW0, q)
+function FK = FKforIK(convention, DOF, DH, TW0, q, angleUnit)
 %% Uncomment for not a function
 % clear all;
 % convention = 'modified';
@@ -12,53 +17,57 @@ function FK = FKforIK(DOF, convention, DH, TW0, q)
 % theta = [180, 180,180,180,180,180];
 % theta = [238,238,100,210,200,0];
 
-%% Parametres DH du manipulateur
+%% DH Parameters of the manipulator
 %DH = [0, 0, -D1, q(1); pi/2, 0, 0, q(2); pi ,D2, -e2, q(3); pi/2, 0, -(D3+D4), q(4); pi/2, 0, 0, q(5); pi/2, 0, (D5+D6), q(6)];
  
 for i=1:DOF
-       alpha(i) = DH(i,3);
-       d(i) = DH(i,2);
-       a(i) = DH(i,1);
+       alpha(i) = DH(i,1);
+       d(i) = DH(i,3);
+       a(i) = DH(i,2);
 %        q(i) = DH(i,4);
-   end    
+end    
+   
+if strcmp(angleUnit, 'Degrees')
+        q = q*pi/180;
+end
  
 
-%% Creation des matrices de rotation et de transformation entre les frames
+%% Creation of the transformation matrices and the corresponding rotation matrices
 for i=1:DOF
-    if strcmp(convention, 'classic')
+    if strcmp(convention, 'Classic')
         T(:,:,i)=[cos(q(i)) -sin(q(i))*cos(alpha(i)) sin(q(i))*sin(alpha(i)) a(i)*cos(q(i));...
                 sin(q(i)) cos(alpha(i))*cos(q(i)) -cos(q(i))*sin(alpha(i)) a(i)*sin(q(i)); ...
                 0 sin(alpha(i)) cos(alpha(i)) d(i);...
                 0 0 0 1];
-    elseif strcmp(convention, 'modified')
-    T(:,:,i)=[cosd(q(i)) -sind(q(i)) 0 a(i);...
-        sind(q(i))*cos(alpha(i)) cos(alpha(i))*cosd(q(i)) -sin(alpha(i)) -d(i)*sin(alpha(i)); ...
-        sind(q(i))*sin(alpha(i)) cosd(q(i))*sin(alpha(i)) cos(alpha(i)) d(i)*cos(alpha(i));...
-        0 0 0 1];
+    elseif strcmp(convention, 'Modified')
+        T(:,:,i)=[cos(q(i)) -sin(q(i)) 0 a(i);...
+            sin(q(i))*cos(alpha(i)) cos(alpha(i))*cos(q(i)) -sin(alpha(i)) -d(i)*sin(alpha(i)); ...
+            sin(q(i))*sin(alpha(i)) cos(q(i))*sin(alpha(i)) cos(alpha(i)) d(i)*cos(alpha(i));...
+            0 0 0 1];
     end
-    Ri_i1(:,:,i) = [T(1,1,i), T(1,2,i), T(1,3,i);T(2,1,i),T(2,2,i),T(2,3,i);T(3,1,i),T(3,2,i),T(3,3,i)];
+    Ri_i1(:,:,i) = [T(1:3,1,i), T(1:3,2,i), T(1:3,3,i)];
     Ri1_i(:,:,i) = transpose(Ri_i1(:,:,i));
            
 end
-%% Creation des matrices de transformation et de rotation en fonction du frame de reference
+%% Creation of the transformation matrices and rotation matrices with respect to the base
 T0=TW0;
 T0(:,:,1) = T0 *T(:,:,1);
-R0 = [1 0 0; 0 -1 0; 0 0 -1];
+R0 = [TW0(1:3,1), TW0(1:3,2), TW0(1:3,3)];
 R0(:,:,1) = R0*Ri_i1(:,:,1);
-Pi_i1(:,:,1) = [T0(1,4,1), T0(2,4,1), T0(3,4,1)];
+ri_0(:,:,1) = [T0(1,4,1), T0(2,4,1), T0(3,4,1)];
 for i = 2:DOF
-    T0(:,:,i) = T0(:,:,i-1) *T(:,:,i);
+    T0(:,:,i) = T0(:,:,i-1)*T(:,:,i);
     R0(:,:,i) = R0(:,:,i-1)*Ri_i1(:,:,i);
-    Pi_0(:,:,i) = [T0(1,4,i), T0(2,4,i), T0(3,4,i)];
+    ri_0(:,:,i) = [T0(1,4,i), T0(2,4,i), T0(3,4,i)];
 end
-%% Vecteurs unitaires des differentes bases vectorielles
+%%Unit vectors of the different vector basis
 for i = 1:DOF
    ux(:,:,i) = transpose([T0(1,4,i), T0(2,4,i), T0(3,4,i)]) + R0(:,:,i)*[0.1;0;0]; 
    uy(:,:,i) = transpose([T0(1,4,i), T0(2,4,i), T0(3,4,i)]) + R0(:,:,i)*[0;0.1;0]; 
    uz(:,:,i) = transpose([T0(1,4,i), T0(2,4,i), T0(3,4,i)]) + R0(:,:,i)*[0;0;0.1]; 
 end
 EulerXYZ = MatRotationToEuler(R0(:,:,6));
-FK = [Pi_0(1,1,6);Pi_0(1,2,6);Pi_0(1,3,6);EulerXYZ(1);EulerXYZ(2);EulerXYZ(3)];
+FK = [ri_0(1,1,6);ri_0(1,2,6);ri_0(1,3,6);EulerXYZ(1);EulerXYZ(2);EulerXYZ(3)];
 end
 %% plot 
 % figure(1)

@@ -1,6 +1,11 @@
-close all; clc;
-addpath(genpath('C:\Users\smichaud\Documents\GitHub\curriculum_matlab'))
-cd 'C:\Users\smichaud\Documents\GitHub\curriculum_matlab\Manipulator Simulator'
+close all; clc; clear all;
+%File that runs the verification of the DH parameters and the foward
+%kinematics functions. Change indicated lines to make the script work
+%correctly.
+
+% ----------------------------------------------------------------------------------------------------------------
+% -------------------------------------------- Change your path --------------------------------------------------
+% ----------------------------------------------------------------------------------------------------------------
 
 Rad2Deg = 180/pi;
 
@@ -24,46 +29,50 @@ D5 = 0.1038;
 D6 = 0.16;
 e2 = 0.0098;
     
-
-
 for index = 1:length(JntPos.ans(1,:))
     
 % ---------------------------------------------------------------------------------------------------------------
 % ----------------------------- Make your change here to test DH parameters --------------------------------------
 % ----------------------------------------------------------------------------------------------------------------
-    % Choose your convention
+
+% Choose your convention
     Convention = 'Classic';
 %     Convention = 'Modified';
-    % Add the right value to pass from your DH frames to the real robot
-    % frames 
-    % Exemple : q(1) = Q1(index) + 360;
+    
+% Choose the unit of the angles
+    AngleUnit = 'Degrees';
+%     AngleUnit = 'Radians';
+
+% Add the right value to pass from your physical angles to your algorithm
+% angles
+% Exemple : q(1) = Q1(index) + 360;
     
     q(1) = Q1(index)+180;
-    q(2) = Q2(index)-90;
-    q(3) = Q3(index)-90;
+    q(2) = Q2(index)+90;
+    q(3) = Q3(index)+90;
     q(4) = Q4(index);
     q(5) = Q5(index);
-    q(6) = (Q6(index)+90);
+    q(6) = (Q6(index)-90);
     
     
-    % Add your definition of the Trasformation Matrix between the world 
-    % arm's frame and the first DH frames that you just created 
+% Add your definition of the Trasformation Matrix between the world 
+% arm's frame and the first DH frames that you just created 
     T0=[1   0   0   0;
         0   -1  0   0;
         0   0   -1  0;
         0   0   0   1];
 
 % Define your DH parameters in the folowing matrix. You must keep the same
-    % syntax for the angles q and and use the dimensions of Jaco2 with a
-    % spherical wrist just above.
+% syntax for the angles q and and use the dimensions of Jaco2 with a
+% spherical wrist just above.
     
     %       alpha   a       d           theta   
     DH = [  pi/2,   0,      -D1,        q(1);
-            pi,     -D2,      0,          q(2);
-            pi/2 ,  0,     -e2,        q(3);
+            pi,     D2,     0,          q(2);
+            pi/2 ,  0,      -e2,        q(3);
             pi/2,   0,      -(D3+D4),   q(4);
             pi/2,   0,      0,          q(5);
-            pi,     0,      -(D5+D6),    q(6)];
+            pi,     0,      -(D5+D6),   q(6)];
    
 
 % ----------------------------------------------------------------------------------------------------------------   
@@ -76,8 +85,8 @@ for index = 1:length(JntPos.ans(1,:))
 
 % Comment/Uncomment the line that correspond to your situation
 
-   coordinates = forwardKinematicsJaco6DOFS_complete(q,DH,T0,Convention);
-%    coordinates = forwardKinematicsJaco6DOFS_to_complete(q,DH,T0,Convention);
+   coordinates = forwardKinematicsJaco6DOFS_complete(Convention,DH,T0,q,AngleUnit);
+%    coordinates = forwardKinematicsJaco6DOFS_to_complete(Convention,DH,T0,q);
 
 % ----------------------------------------------------------------------------------------------------------------   
 % ------------------------------- Do not change the code beyond this line --------------------------------------
