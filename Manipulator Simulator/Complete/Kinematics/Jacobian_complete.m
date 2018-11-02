@@ -61,12 +61,7 @@ end
             J(:,i+1)=Jacobcol(:,1,i);
         end
         % Correcting the orientation of rotation.  Varies due to DH frames
-        J(:,1) = J(:,1);
-        J(:,2) = J(:,2);
-        J(:,3) = J(:,3);
-        J(:,4) = J(:,4);
-        J(:,5) = J(:,5);
-        J(:,6) = J(:,6);
+
         
     elseif  strcmp(convention, 'Modified')
         %Making the first column of the Jacobian
@@ -78,7 +73,7 @@ end
         end
         
         % Making the loop to place the column in the right order
-        for i = 2:DOF
+        for i = 1:DOF
             J(:,i)=Jacobcol(:,1,i);
         end 
         

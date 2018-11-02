@@ -39,7 +39,7 @@ Pcurr = FKforIK(convention, DOF, DH, TW0,q, angleUnit);
 Rgoal=EulerXYZtoRot(Pgoal(4:6));
 ii = 1;
 Err = abs(Pgoal-Pcurr);
-while max(Err)>0.000001
+while max(Err)>0.0001
 % for ii=1:100                      %Uncomment line if you prefer a number of iterations rather than an error to respect
 
     Rcurr=EulerXYZtoRot(Pcurr(4:6));%Current rotational matrix from Euler angles
