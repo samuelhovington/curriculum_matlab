@@ -38,9 +38,15 @@ for ii = 1:3
     q(1,ii) = theta(1,ii)+180;
     q(2,ii) = theta(2,ii)+90;
     q(3,ii) = theta(3,ii)+90;
+<<<<<<< HEAD
     q(4,ii) = -theta(4,ii);
     q(5,ii) = -theta(5,ii);
     q(6,ii) = -(theta(6,ii)-90);
+=======
+    q(4,ii) = theta(4,ii);
+    q(5,ii) = theta(5,ii)-180;
+    q(6,ii) = theta(6,ii)+90;
+>>>>>>> parent of 50c4af3... Adjustments
 
 % Define your DH parameters in the folowing matrix. You must keep the same
 % syntax for the angles q and and use the dimensions of Jaco2 with a
