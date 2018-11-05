@@ -53,7 +53,7 @@ function q = InverseKinematics_complete(convention, DOF,DH, TW0, Pgoal, theta, a
     while max(Err)>0.001                    %Beginning of the iterative method
 %     for ii=1:1000                         %Uncomment line if you prefer a number of iterations rather than an error to respect
         Pcurr_old = Pcurr;
-        Rcurr=0;    %Current rotational matrix from Euler angles
+        Rcurr=EulerXYZtoRot(Pcurr(4:6));    %Current rotational matrix from Euler angles
         delta_R=Rgoal-Rcurr;                %Difference between matrices
         Omega=delta_R/Rcurr;                %matrix differential rule: delta_R=Omega*Rcurr. So Omega = delta_R*inv(Rcurr)
 
@@ -72,4 +72,3 @@ function q = InverseKinematics_complete(convention, DOF,DH, TW0, Pgoal, theta, a
     end
     
 end
-

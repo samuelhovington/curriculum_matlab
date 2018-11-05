@@ -38,32 +38,9 @@ for ii = 1:3
     q(1,ii) = theta(1,ii)+180;
     q(2,ii) = theta(2,ii)+90;
     q(3,ii) = theta(3,ii)+90;
-<<<<<<< HEAD
     q(4,ii) = -theta(4,ii);
     q(5,ii) = -theta(5,ii);
     q(6,ii) = -(theta(6,ii)-90);
-    q(4,ii) = theta(4,ii);
-    q(5,ii) = theta(5,ii)-180;
-    q(6,ii) = theta(6,ii)+90;
-    q(4,ii) = theta(4,ii);
-    q(5,ii) = theta(5,ii)-180;
-<<<<<<< HEAD
-    q(6,ii) = -(theta(6,ii)+90);
->>>>>>> parent of e38b767... wrong
-=======
-    q(6,ii) = theta(6,ii)+90;
->>>>>>> parent of 50c4af3... Adjustments
-=======
->>>>>>> parent of cf6f3e8... Revert "wrong"
-=======
-    q(4,ii) = theta(4,ii);
-    q(5,ii) = theta(5,ii)-180;
-<<<<<<< HEAD
-    q(6,ii) = -(theta(6,ii)+90);
->>>>>>> parent of e38b767... wrong
-=======
-    q(6,ii) = theta(6,ii)+90;
->>>>>>> parent of 50c4af3... Adjustments
 
 % Define your DH parameters in the folowing matrix. You must keep the same
 % syntax for the angles q and and use the dimensions of Jaco2 with a
@@ -72,7 +49,7 @@ for ii = 1:3
     DH = [  0,      0,      -D1,        q(1,ii);
             pi/2,   0,      0,          q(2,ii);
             pi ,    D2,     -e2,        q(3,ii);
-            pi/2,   0,      -(D3+D4),   q(4,ii);
+            3*pi/2,   0,      (D3+D4),   q(4,ii);
             pi/2,   0,      0,          q(5,ii);
             pi/2,   0,      (D5+D6),    q(6,ii)];
         
