@@ -48,13 +48,9 @@ function [coordinates] = forwardKinematicsJaco6DOFS_complete(convention, DH, TW0
 
         ri_0(:,:,i) = [T0(1,4,i), T0(2,4,i), T0(3,4,i)];
     end
-    for i =1:6
-    EulerXYZ(1:3,i) = MatRotationToEuler(R0(:,:,i));
-    end
         
 %% Positions and orientation of the joints from transformation matrices
         %Physical positions of the origins of the frames to view the robot
-        
         J6 = [T0(1:3,4,6)];
         J5 = [T0(1:3,4,5)];
         J4 = [T0(1:3,4,4)];
@@ -62,13 +58,6 @@ function [coordinates] = forwardKinematicsJaco6DOFS_complete(convention, DH, TW0
         J2 = [T0(1:3,4,2)];
         J1 = [T0(1:3,4,1)];
         J0 = [TW0(1:3,4)];
-%         J6 = [T0(1:3,4,6);EulerXYZ(1:3,6)];
-%         J5 = [T0(1:3,4,5);EulerXYZ(1:3,5)];
-%         J4 = [T0(1:3,4,4);EulerXYZ(1:3,4)];
-%         J3 = [T0(1:3,4,3);EulerXYZ(1:3,3)];
-%         J2 = [T0(1:3,4,2);EulerXYZ(1:3,2)];
-%         J1 = [T0(1:3,4,1);EulerXYZ(1:3,1)];
-%         J0 = [TW0(1:3,4);EulerXYZ(1:3,1)];
         coordinates = [J0,J1,J2,J3,J4,J5,J6];
     
         

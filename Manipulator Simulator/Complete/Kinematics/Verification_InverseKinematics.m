@@ -48,6 +48,7 @@ e2 = 0.0098;
 <<<<<<< HEAD
     q(4,1) = -theta(4,1);
     q(5,1) = -theta(5,1);
+<<<<<<< HEAD
     q(6,1) = -(theta(6,1)-90);
 =======
     q(4,1) = theta(4,1);
@@ -70,6 +71,9 @@ e2 = 0.0098;
 >>>>>>> parent of 50c4af3... Adjustments
 =======
 >>>>>>> parent of cf6f3e8... Revert "wrong"
+=======
+    q(6,1) = (theta(6,1));
+>>>>>>> parent of e38b767... wrong
 % Define your DH parameters in the folowing matrix. You must keep the same
 % syntax for the angles q and and use the dimensions of Jaco2 with a
 % spherical wrist just above.
@@ -77,6 +81,7 @@ e2 = 0.0098;
 DH = [  0,      0,      -D1;
         pi/2,   0,      0;
         pi,     D2,     -e2;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -110,6 +115,11 @@ DH = [  0,      0,      -D1;
 >>>>>>> parent of 50c4af3... Adjustments
 =======
 >>>>>>> parent of cf6f3e8... Revert "wrong"
+=======
+        3*pi/2,   0,      (D3+D4);
+        pi/2,   0,      0;
+        3*pi/2,   0,      -(D5+D6)];
+>>>>>>> parent of e38b767... wrong
 
 % Add your definition of the Trasformation Matrix between the world 
 % arm's frame and the first DH frames that you just created 

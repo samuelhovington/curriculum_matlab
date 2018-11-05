@@ -45,7 +45,7 @@ for i=1:DOF
             sin(q(i))*sin(alpha(i)) cos(q(i))*sin(alpha(i)) cos(alpha(i)) d(i)*cos(alpha(i));...
             0 0 0 1];
     end
-    Ri_i1(:,:,i) = T(1:3,1:3,i);
+    Ri_i1(:,:,i) = [T(1:3,1,i), T(1:3,2,i), T(1:3,3,i)];
     Ri1_i(:,:,i) = transpose(Ri_i1(:,:,i));
            
 end
@@ -57,8 +57,8 @@ R0(:,:,1) = R0*Ri_i1(:,:,1);
 ri_0(:,:,1) = [T0(1,4,1), T0(2,4,1), T0(3,4,1)];
 for i = 2:DOF
     T0(:,:,i) = T0(:,:,i-1)*T(:,:,i);
-    R0(:,:,i) = T0(1:3,1:3,i);
-    ri_0(:,:,i) = T0(1:3,4,i);
+    R0(:,:,i) = R0(:,:,i-1)*Ri_i1(:,:,i);
+    ri_0(:,:,i) = [T0(1,4,i), T0(2,4,i), T0(3,4,i)];
 end
 %%Unit vectors of the different vector basis
 for i = 1:DOF
