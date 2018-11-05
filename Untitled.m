@@ -1,26 +1,13 @@
-close all; clc; clear all;
-%File that runs the verification of the DH parameters and the foward
-%kinematics functions. Change indicated lines to make the script work
-%correctly.
+clear all;
+Q1 = 180;
+Q2 = 270;
+Q3= 180;
+Q4 = 270;
+Q5 = 270;
+Q6 = 270;
 
-% ----------------------------------------------------------------------------------------------------------------
-% -------------------------------------------- Change your path --------------------------------------------------
-% ----------------------------------------------------------------------------------------------------------------
 
-Rad2Deg = 180/pi;
 
-% We load the matrix where de joint and the end effector position are stored
-JntPos = load ('JntPos.mat');
-Pee = load('Pee.mat');
-% We assign each row to a joint
-Q1 = Rad2Deg.*JntPos.ans(2,:);
-Q2 = Rad2Deg.*JntPos.ans(3,:);
-Q3 = Rad2Deg.*JntPos.ans(4,:);
-Q4 = Rad2Deg.*JntPos.ans(5,:);
-Q5 = Rad2Deg.*JntPos.ans(6,:);
-Q6 = Rad2Deg.*JntPos.ans(7,:);
-
-% Dimensions of a Jaco2 Spherical wrist
 D1 = 0.2755;
 D2 = 0.4100;
 D3 = 0.2073;
@@ -28,12 +15,6 @@ D4 = 0.1038;
 D5 = 0.1038;
 D6 = 0.16;
 e2 = 0.0098;
-    
-for index = 1:length(JntPos.ans(1,:))
-    
-% ---------------------------------------------------------------------------------------------------------------
-% ----------------------------- Make your change here to test DH parameters --------------------------------------
-% ----------------------------------------------------------------------------------------------------------------
 
 % Choose your convention
 %     Convention = 'Classic';
@@ -47,12 +28,13 @@ for index = 1:length(JntPos.ans(1,:))
 % angles
 % Exemple : q(1) = Q1(index) + 360;
     
-    q(1) = Q1(index)+180;
-    q(2) = Q2(index)+90;
-    q(3) = Q3(index)+90;
-    q(4) = -Q4(index);
-    q(5) = -Q5(index);
-    q(6) = -(Q6(index))+90;
+    q(1) = Q1+180;
+    q(2) = Q2;
+    q(3) = Q3;
+    q(4) = Q4;
+    q(5) = Q5;
+    q(6) = Q6;
+    
     
 % Add your definition of the Trasformation Matrix between the world 
 % arm's frame and the first DH frames that you just created 
@@ -71,14 +53,8 @@ for index = 1:length(JntPos.ans(1,:))
             pi,  D2,      -e2,        q(3);
             3*pi/2,   0,      (D3+D4),   q(4);
             pi/2,   0,      0,          q(5);
-            pi/2,     0,      (D5+D6),   q(6)];
-   
-
-% ----------------------------------------------------------------------------------------------------------------   
-% --------------------- Make the change here to test your foward kinematics --------------------------------------
-% ----------------------------------------------------------------------------------------------------------------
-
-% The fisrt line call a ready to work function that you can use to test your
+            3*pi/2,     0,      -(D5+D6),   q(6)];
+   % The fisrt line call a ready to work function that you can use to test your
 % DH parameters.
 % The second line call a function that you must complete to make it works.
 
@@ -86,13 +62,13 @@ for index = 1:length(JntPos.ans(1,:))
 
    coordinates = forwardKinematicsJaco6DOFS_complete(Convention,DH,T0,q,AngleUnit);
 %    coordinates = forwardKinematicsJaco6DOFS_to_complete(Convention,DH,T0,q);
-%     orientation(:,index) = coordinates(4:6, 7);
+    orientation(:,1) = coordinates(4:6, 7);
 % ----------------------------------------------------------------------------------------------------------------   
 % ------------------------------- Do not change the code beyond this line --------------------------------------
 % ----------------------------------------------------------------------------------------------------------------
 
    % We store the position of the end effector in EndEffector
-   EndEffector(index,:)=coordinates(:,7);
+   EndEffector(1,:)=coordinates(:,7);
    
    % We create the figure where the robot will be shown
    figure(1)
@@ -118,15 +94,14 @@ for index = 1:length(JntPos.ans(1,:))
    plot3(coordinates(1,1),coordinates(2,1),coordinates(3,1), '-r*')
    
    % We show the trajectory for the whole simulation
-   plot3(EndEffector(1:index,1),EndEffector(1:index,2),EndEffector(1:index,3),'.r')
+   plot3(EndEffector(1,1),EndEffector(1,2),EndEffector(1,3),'.r')
    plot3(Pee.ans(2,:),Pee.ans(3,:),Pee.ans(4,:))
    hold off
 
-end
 
-% x = load('orientation2.mat')
-% d = x.orientation - orientation
-% 
-% if (max(d) < 0.00001)
-%    1
-% end
+x = load('orientation2.mat')
+d = x.orientation - orientation
+
+if (max(d) < 0.00001)
+   1
+end

@@ -81,8 +81,8 @@ end
         J(:,1) = J(:,1);
         J(:,2) = J(:,2);
         J(:,3) = J(:,3);
-        J(:,4) = J(:,4);
-        J(:,5) = J(:,5);
+        J(:,4) = -J(:,4);
+        J(:,5) = -J(:,5);
         J(:,6) = -J(:,6);
     else
         'Choose a convention between Classic and Modified'
