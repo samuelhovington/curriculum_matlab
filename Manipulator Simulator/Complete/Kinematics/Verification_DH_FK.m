@@ -36,8 +36,8 @@ for index = 1:length(JntPos.ans(1,:))
 % ----------------------------------------------------------------------------------------------------------------
 
 % Choose your convention
-%     Convention = 'Classic';
-    Convention = 'Modified';
+    Convention = 'Classic';
+%     Convention = 'Modified';
     
 % Choose the unit of the angles
     AngleUnit = 'Degrees';
@@ -50,9 +50,10 @@ for index = 1:length(JntPos.ans(1,:))
     q(1) = Q1(index)+180;
     q(2) = Q2(index)+90;
     q(3) = Q3(index)+90;
-    q(4) = -Q4(index);
-    q(5) = -Q5(index);
-    q(6) = -(Q6(index))+90;
+    q(4) = Q4(index);
+    q(5) = Q5(index);
+    q(6) = (Q6(index)-90);
+    
     
 % Add your definition of the Trasformation Matrix between the world 
 % arm's frame and the first DH frames that you just created 
@@ -66,12 +67,12 @@ for index = 1:length(JntPos.ans(1,:))
 % spherical wrist just above.
     
     %       alpha   a       d           theta   
-    DH = [  0,   0,      -D1,        q(1);
-            pi/2,     0,     0,          q(2);
-            pi,  D2,      -e2,        q(3);
-            3*pi/2,   0,      (D3+D4),   q(4);
+    DH = [  pi/2,   0,      -D1,        q(1);
+            pi,     D2,     0,          q(2);
+            pi/2 ,  0,      -e2,        q(3);
+            pi/2,   0,      -(D3+D4),   q(4);
             pi/2,   0,      0,          q(5);
-            pi/2,     0,      (D5+D6),   q(6)];
+            pi,     0,      -(D5+D6),   q(6)];
    
 
 % ----------------------------------------------------------------------------------------------------------------   
@@ -86,7 +87,7 @@ for index = 1:length(JntPos.ans(1,:))
 
    coordinates = forwardKinematicsJaco6DOFS_complete(Convention,DH,T0,q,AngleUnit);
 %    coordinates = forwardKinematicsJaco6DOFS_to_complete(Convention,DH,T0,q);
-%     orientation(:,index) = coordinates(4:6, 7);
+
 % ----------------------------------------------------------------------------------------------------------------   
 % ------------------------------- Do not change the code beyond this line --------------------------------------
 % ----------------------------------------------------------------------------------------------------------------
@@ -123,10 +124,3 @@ for index = 1:length(JntPos.ans(1,:))
    hold off
 
 end
-
-% x = load('orientation2.mat')
-% d = x.orientation - orientation
-% 
-% if (max(d) < 0.00001)
-%    1
-% end

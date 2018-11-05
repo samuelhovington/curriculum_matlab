@@ -11,8 +11,8 @@ D6 = 0.16;
 e2 = 0.0098;
     
 % Choose your convention
-%     convention = 'Classic';
-    convention = 'Modified';
+    convention = 'Classic';
+%     convention = 'Modified';
     
 % Choose the unit of the angles
     angleUnit = 'Degrees';
@@ -28,18 +28,18 @@ e2 = 0.0098;
     q(2,1) = theta(2,1)+90;
     q(3,1) = theta(3,1)+90;
     q(4,1) = theta(4,1);
-    q(5,1) = theta(5,1)-180;
-    q(6,1) = -(theta(6,1)-270);
+    q(5,1) = theta(5,1);
+    q(6,1) = (theta(6,1)-90);
 % Define your DH parameters in the folowing matrix. You must keep the same
 % syntax for the angles q and and use the dimensions of Jaco2 with a
 % spherical wrist just above.
 %       alpha   a       d 
-DH = [  0,      0,      -D1;
-        pi/2,   0,      0;
-        pi,    D2,     -e2;
+DH = [  pi/2,      0,      -D1;
+        pi,  D2,      0;
+        pi/2,     0,     -e2;
         pi/2,   0,      -(D3+D4);
         pi/2,   0,      0;
-        pi/2,   0,      (D5+D6)];
+        pi,   0,      -(D5+D6)];
 
 % Add your definition of the Trasformation Matrix between the world 
 % arm's frame and the first DH frames that you just created 
@@ -58,7 +58,7 @@ trajectory(1,:) = Cartesian_trajectory(1,:);
 trajectory(2:7,1) = q;
 trajectory(2:7,1) = InverseKinematics_complete(convention, DOF,DH, TW0, Cartesian_trajectory(2:7,1), trajectory(2:7,1), angleUnit);
 for ii=2:l
-    q = InverseKinematics_complete(convention, DOF,DH, TW0, Cartesian_trajectory(2:7,ii), trajectory(2:7,ii-1), angleUnit);
+    q = InverseKinematics_complete(convention, DOF,DH, TW0, Cartesian_trajectory(2:7,ii), trajectory(2:7,1), angleUnit);
     
     for index = 1:DOF
         while q(index)<=0||q(index)>=(2*pi)
