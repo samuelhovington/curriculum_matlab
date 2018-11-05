@@ -46,6 +46,9 @@ for ii = 1:3
     q(4,ii) = theta(4,ii);
     q(5,ii) = theta(5,ii)-180;
     q(6,ii) = theta(6,ii)+90;
+<<<<<<< HEAD
+>>>>>>> parent of 50c4af3... Adjustments
+=======
 >>>>>>> parent of 50c4af3... Adjustments
 
 % Define your DH parameters in the folowing matrix. You must keep the same
