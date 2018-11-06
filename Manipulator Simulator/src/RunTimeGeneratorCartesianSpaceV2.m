@@ -1,6 +1,6 @@
 clear all;
 
-theta = [-152; 189;72;186;200;0];
+theta = [283.23;162.57;43.44;-94.35;257.41;287.97];
 
 D1 = 0.2755;
 D2 = 0.4100;
@@ -24,22 +24,12 @@ e2 = 0.0098;
 % Add the right value to pass from your physical angles to your algorithm
 % angles
 % Exemple : q(1) = Q1(index) + 360;
-    q(1,1) = theta(1,1)+180;
-    q(2,1) = theta(2,1)+90;
-    q(3,1) = theta(3,1)+90;
-    q(4,1) = theta(4,1);
-    q(5,1) = theta(5,1)-180;
-    q(6,1) = -(theta(6,1)-270);
+    q(:,1) = Theta_physalgo(convention, angleUnit, 2, 1, theta);
 % Define your DH parameters in the folowing matrix. You must keep the same
 % syntax for the angles q and and use the dimensions of Jaco2 with a
 % spherical wrist just above.
 %       alpha   a       d 
-DH = [  0,      0,      -D1;
-        pi/2,   0,      0;
-        pi,    D2,     -e2;
-        pi/2,   0,      -(D3+D4);
-        pi/2,   0,      0;
-        pi/2,   0,      (D5+D6)];
+    DH = DH(convention, 2);
 
 % Add your definition of the Trasformation Matrix between the world 
 % arm's frame and the first DH frames that you just created 
@@ -48,15 +38,16 @@ DH = [  0,      0,      -D1;
         0   0   -1  0;
         0   0   0   1];
 
-X_i = [0.35; -0.2652; 0.5062; 1.65; 1.1089; 0.1259];
-X_g = [0.50; -0.2652; 0.5062; 1.65; 1.1089; 0.1259];
+X_i = [0.2114; -0.2652; 0.5062; 1.65; 1.1089; 0.1259];
+X_g = [0.50; -0.5; 0.5062; 2; 1.5; 0.1259];
 T = 2;
 
-Cartesian_trajectory = TrajectoryPlanner_6DOFS_LBC_complete(X_i, X_g, T);
+Cartesian_trajectory = TrajectoryPlanner_6DOFS_LB_C_complete(X_i, X_g, T);
 l = length(Cartesian_trajectory);
 trajectory(1,:) = Cartesian_trajectory(1,:);
 trajectory(2:7,1) = q;
 trajectory(2:7,1) = InverseKinematics_complete(convention, DOF,DH, TW0, Cartesian_trajectory(2:7,1), trajectory(2:7,1), angleUnit);
+angleUnit = 'Radians';
 for ii=2:l
     q = InverseKinematics_complete(convention, DOF,DH, TW0, Cartesian_trajectory(2:7,ii), trajectory(2:7,ii-1), angleUnit);
     
@@ -71,7 +62,7 @@ for ii=2:l
     end
     trajectory(2:7,ii) = q;
 end
-angleUnit = 'Radians';
+
 
 
 for index=1:l
@@ -109,15 +100,4 @@ for index=1:l
 %    end
    hold off
   
-end
-
-
-function theta = ThetaAlgo(theta)
-Deg2Rad = pi/180;
-theta(1) = Deg2Rad * (theta(1) + 180);
-theta(2) = Deg2Rad * (theta(2) +90);
-theta(3) = Deg2Rad * (theta(3) + 90);
-theta(4) = Deg2Rad * theta(4);
-theta(5) = Deg2Rad * theta(5);
-theta(6) = Deg2Rad * (theta(6) - 90);
 end

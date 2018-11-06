@@ -3,7 +3,7 @@
 %Function that receives two angles and that generates a trajectory to
 %generate the movement between those two points
 
-function trajectory =TrajectoryPlanner_6DOFS_LB_complete(theta_i, theta_g, T)
+function trajectory =TrajectoryPlanner_6DOFS_LB_J_complete(theta_i, theta_g, T)
     JOINTS = 6;
     % Definition of the time parameters
     ta = T/3;               %ta is the time in the acceleration blend

@@ -1,18 +1,18 @@
 %Created on 2018-10-22 by Simon Michaud @Kinova
-%Modified on 2018-10-23
-%Function that receives two angles and that generates a trajectory to
+%Modified on 2018-11-06
+%Function that receives two angles and a time duration that generates a trajectory to
 %generate the movement between those two points
 
-function trajectory =TrajectoryPlanner_6DOFS_LBC_complete(X_i, X_g, T)
+function trajectory =TrajectoryPlanner_6DOFS_LB_C_complete(X_i, X_g, T)
     JOINTS = 6;
     % Definition of the time parameters
     ta = T/3;               %ta is the time in the acceleration blend
     h = T/(T*100);          %h is the time step for the trajectory matrix
     
     %Definition of the parameters of the algorithm
-    L = X_g - X_i;  %Displacement
-    dX = 3*L/(2*T);     %Velocity at the end of the first blend and the linear part
-    ddX = 9*L/(2*T^2);  %Acceleration in the blend
+    L = X_g - X_i;          %Displacement
+    dX = 3*L/(2*T);         %Velocity at the end of the first blend and the linear part
+    ddX = 9*L/(2*T^2);      %Acceleration in the blend
     
     % Parameters entered in the trajectory equation
     for i = 1: JOINTS
