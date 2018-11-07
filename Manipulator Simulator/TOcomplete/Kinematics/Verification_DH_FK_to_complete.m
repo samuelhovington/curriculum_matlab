@@ -32,8 +32,11 @@ D5 = 0.1038;
 D6 = 0.16;
 e2 = 0.0098;
     
-
-
+txt2 = 'If everything is correct, your robot (in blue) should follow the trajectory (in orange).';
+txt1 = 'The goal of this exercise is to verify your DH parameters and your forward kinematics function by verifying that the robot executes the correct trajectory.';
+txt3 = '';
+txt4 = 'When you are done reading, press ok to start the program.';
+uiwait(msgbox({txt1 txt2 txt3 txt4}, 'Verification DH FK'));
 for index = 1:length(JntPos.ans(1,:))
     
 % ---------------------------------------------------------------------------------------------------------------
@@ -86,7 +89,7 @@ for index = 1:length(JntPos.ans(1,:))
 
 % Comment/Uncomment the line that correspond to your situation
 
-   coordinates = forwardKinematicsJaco6DOFS_complete(q,DH,T0,Convention);
+   coordinates = forwardKinematicsJaco6DOFS_complete(Convention, DH, T0,q, AngleUnit);
 %    coordinates = forwardKinematicsJaco6DOFS_to_complete(q,DH,T0,Convention);
 
 % ----------------------------------------------------------------------------------------------------------------   
@@ -112,9 +115,10 @@ for index = 1:length(JntPos.ans(1,:))
    set(findall(gca, 'Type', 'Line'),'LineWidth',5);
    xlabel('X')
    ylabel('Y')
-   xlim([-1 1])
-   ylim([-1 1])
-   zlim([0 1.3])
+   title('Verification of the DH Parameters and the Foward Kinematics Function')
+%    xlim([-1 1])
+%    ylim([-1 1])
+%    zlim([0 1.3])
    
    % We mark the base with a red *
    plot3(coordinates(1,1),coordinates(2,1),coordinates(3,1), '-r*')

@@ -1,7 +1,14 @@
 %Created on 2018-10-22 by Simon Michaud @Kinova
-%Modified on 2018-10-23
-%Function that receives two angles and that generates a trajectory to
-%generate the movement between those two points
+%Modified on 2018-11-07
+
+%Trajectory planner using a linear function with blends in the joint space 
+%scheme. 
+
+%Arguments: Initial angular position of the robot, goal angular position, 
+            %desired time
+%Returns:   7x100*t(in sec)*2 matrix that define the trajectory, with the 
+            %first row being the time and the 6 other being the angular 
+            %positions of the robot
 
 function trajectory =TrajectoryPlanner_6DOFS_LB_J_complete(theta_i, theta_g, T)
     JOINTS = 6;

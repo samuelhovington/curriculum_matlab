@@ -81,6 +81,12 @@ for ii = 1:3
 % % ----------------------------------------------------------------------------------------------------------------
 end
 
+txt2 = 'Your matrix J(:,:,i) should be the same as the matrix AnswerJ(:,:,i).';
+txt1 = 'The goal of this exercise is to verify your Jacobian function by verifying that it made you obtain the correct jacobian matrix.';
+txt3 = '';
+txt4 = 'When you are done reading, press ok and press any button in the command window to start the program.';
+uiwait(msgbox({txt1 txt2 txt3 txt4}, 'Jacobian'));
+
 AnswerJ(:,:,1) = [
 
     0.1722    0.1099    0.0017   -0.0424   -0.0978         0;

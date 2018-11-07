@@ -1,10 +1,15 @@
-%Function that takes the convention of the DH parameters, the number of DOF,
-%the classic DH parameters, the transformation matrix between the robot's 
-%world frame and the frame 0, the angular position of the robot in angles 
-%of the DH algorithm and the unit of this angular position (degrees or
-%radians)
 %Created 2018-10-22 by Simon Michaud @Kinova
-%Modified 2018-10-31 @10:09 am
+%Modified 2018-11-07 @10:09 am
+
+%Jacobian function that generates the Jacobian matrix of the given angular
+%position.
+
+%Arguments: Convention of the DH parameters, number of degrees of freedom,
+            %the DH parameters, the transformation matrix from world frame
+            %to the 0 DH frame, the angular position, the units of the
+            %angles of the angular position
+%Returns:   DOFxDOF matrix that define the Jacobian of the given angular
+            %position
 
 function J = Jacobian_to_complete(convention, DOF, DH, TW0, q, angleUnit)
 %% Parameters for the creation of the jacobian

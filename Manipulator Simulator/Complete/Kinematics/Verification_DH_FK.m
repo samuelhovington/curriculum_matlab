@@ -28,7 +28,13 @@ D4 = 0.1038;
 D5 = 0.1038;
 D6 = 0.16;
 e2 = 0.0098;
-    
+     
+txt2 = 'If everything is correct, your robot (in blue) should follow the trajectory (in orange).';
+txt1 = 'The goal of this exercise is to verify your DH parameters and your forward kinematics function by verifying that the robot executes the correct trajectory.';
+txt3 = '';
+txt4 = 'When you are done reading, press ok to start the program.';
+uiwait(msgbox({txt1 txt2 txt3 txt4}, 'Verification DH FK'));
+
 for index = 1:length(JntPos.ans(1,:))
     
 % ---------------------------------------------------------------------------------------------------------------
@@ -111,6 +117,7 @@ for index = 1:length(JntPos.ans(1,:))
    set(findall(gca, 'Type', 'Line'),'LineWidth',5);
    xlabel('X')
    ylabel('Y')
+   title('Verification of the DH Parameters and the Foward Kinematics Function')
 %    xlim([-1 1])
 %    ylim([-1 1])
 %    zlim([0 1.3])

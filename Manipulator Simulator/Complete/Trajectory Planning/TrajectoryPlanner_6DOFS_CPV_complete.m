@@ -1,7 +1,14 @@
-%Simon Michaud
-%Creation: 2018-10-18
-%Modifications 2018-10-18
-%Trajectory planner with 1 via point in the middle
+%Creation: 2018-10-18 by Simon Michaud @Kinova
+%Modifications 2018-11-07
+
+%Trajectory planner using a polynomial function in the joint space scheme
+%with 1 via point. 
+
+%Arguments: Initial angular position of the robot, via angular position, 
+            %goal angular position, desired time
+%Returns:   7x100*t(in sec)*2 matrix that define the trajectory, with the 
+            %first row being the time and the 6 other being the angular 
+            %positions of the robot
 
 function trajectory = TrajectoryPlanner_6DOFS_CPV_complete(theta_i, theta_v, theta_g, desired_time)
 

@@ -1,10 +1,18 @@
-%Jaco 6 DOF Spherical wrist, function that returns the position of the DH
-%frames of the robot from the angular positions of the joints. The
-%arguments of the function are the convention of the DH parameters, the DH
-%parameters, the transformation matrix from the world frame to the 0 frame,
-%the angular position of the joint and their unit (degrees or radians)
 %Created 2018-09-25 by Simon Michaud @Kinova
 %Modified 2018-10-31 @10:11 am
+
+%Foward kinematics function that returns the cartesian position of the end
+%effector from the angular position of the robot
+
+%Arguments: Convention of the DH parameters, the DH parameters, the 
+            %transformation matrix from world frame to the 0 DH frame, 
+            %the goal cartesian position of the end effector, the guessed
+            %angular position and the units of the angles of the angular 
+            %position
+%Returns:   3x7 vector containing the cartesian position of the angles of
+            %the robot where each column is a joint and column 1 is the
+            %base
+
 
 function [coordinates] = forwardKinematicsJaco6DOFS_to_complete(convention, DH, T0, q, angleUnit)
 %% Parameters for the creation of the FK

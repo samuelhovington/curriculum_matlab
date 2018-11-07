@@ -1,7 +1,14 @@
 %Created on 2018-10-22 by Simon Michaud @Kinova
 %Modified on 2018-11-06
-%Function that receives two angles and a time duration that generates a trajectory to
-%generate the movement between those two points
+
+%Trajectory planner using a linear function with blends in the cartesian
+%space scheme
+
+%Arguments: Initial cartesian position of the end effector, goal cartesian 
+            %position of the end effecto desired time
+%Returns:   7x100*t(in sec) matrix that define the trajectory, with the 
+            %first row being the time and the 6 other being the cartesian
+            %position and orientation of the end effector
 
 function trajectory =TrajectoryPlanner_6DOFS_LB_C_complete(X_i, X_g, T)
     JOINTS = 6;

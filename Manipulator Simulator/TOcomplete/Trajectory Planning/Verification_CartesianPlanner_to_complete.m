@@ -39,35 +39,35 @@ e2 = 0.0098;
 % angles
 % Exemple : q(1) = Q1(index) + 360;
 
-    q(1) = theta(1)+180;
-    q(2) = theta(2)+90;
-    q(3) = theta(3)+90;
+    q(1) = theta(1);
+    q(2) = theta(2);
+    q(3) = theta(3);
     q(4) = theta(4);
     q(5) = theta(5);
-    q(6) = (theta(6)-90);
+    q(6) = theta(6);
 
 
 % Add your definition of the Trasformation Matrix between the world 
 % arm's frame and the first DH frames that you just created 
-    TW0=[1   0   0   0;
-        0   -1  0   0;
-        0   0   -1  0;
-        0   0   0   1];
+    TW0=[   1   0   0   0;
+            0   1   0   0;
+            0   0   1   0;
+            0   0   0   1];
 
 % Define your DH parameters in the folowing matrix. You must keep the same
 % syntax for the angles q and and use the dimensions of Jaco2 with a
 % spherical wrist just above.
 
     %       alpha   a       d           theta   
-    DH = [  pi/2,   0,      -D1,        q(1);
-            pi,     D2,     0,          q(2);
-            pi/2 ,  0,      -e2,        q(3);
-            pi/2,   0,      -(D3+D4),   q(4);
-            pi/2,   0,      0,          q(5);
-            pi,     0,      -(D5+D6),   q(6)];
+    DH = [  0,      0,      0,          q(1);
+            0,      0,      0,          q(2);
+            0,      0,      0,          q(3);
+            0,      0,      0,          q(4);
+            0,      0,      0,          q(5);
+            0,      0,      0,          q(6)];
 
 % ----------------------------------------------------------------------------------------------------------------   
-% ------------------------- Make the change here to test your trajectory planner ---------------------------------
+% ------------------------------ Make the change here to test your trajectory planner --------------------------------------
 % ---------------------------------------------------------------------------------------------------------------- 
     Cartesian_trajectory = TrajectoryPlanner_6DOFS_LB_C_complete(X_i, X_g, T);
     % Cartesian_trajectory = TrajectoryPlanner_6DOFS_LB_C_to_complete(X_i, X_g, T);
@@ -106,7 +106,6 @@ txt1 = 'The goal of this exercise is to verify your cartesian space linear motio
 txt3 = '';
 txt4 = 'When you are done reading, press ok to start the program.';
 uiwait(msgbox({txt1 txt2 txt3 txt4}, 'Cartesian Planner'));
-
     
 %Plotting the results
     for index=1:l

@@ -1,11 +1,15 @@
-%Jaco 6 DOF Spherical wrist, function that executes the inverse kinematics
-%for this Kinova product. It takes in parameters the convention, the number
-%of DOF, the DH parameters [a,d,alpha], the corresponding transformation 
-%matrix from base to frame 0, the desired cartesian position,the guessed 
-%angles of the DH algorithm of the joints and unit of the guessed angular
-%position (radians or degrees)
 %Created 2018-10-25 by Simon Michaud @Kinova
-%Modified 2018-10-30
+%Modified 2018-11-06
+
+%Inverse kinematics function that returns the angular position of the robot
+%from a given cartesian position 
+
+%Arguments: Convention of the DH parameters, number of degrees of freedom,
+            %the DH parameters, the transformation matrix from world frame
+            %to the 0 DH frame, the goal cartesian position of the end 
+            %effector, the guessed angular position and the units of the 
+            %angles of the angular position
+%Returns:   6x1 vector containing the angular position of the robot
 
 function q = InverseKinematics_to_complete(convention, DOF,DH, TW0, Pgoal, theta, angleUnit)
 %% Foward Kinematics for initial point

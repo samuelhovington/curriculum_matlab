@@ -2,6 +2,8 @@ close all; clear all;
 %File that runs the verification of the Inverse Kinematics function. Change indicated
 %lines to make the script work correctly.
 
+C = load('CoordinatesIKV.mat');
+
 Pgoal(:,:,1) = [0.2114; -0.2652; 0.5062; 1.64; 1.1089; 0.1259];
 Pgoal(:,:,2) = [0.55; -0.2652; 0.5062; 1.85; 1.1089; 0.1259];
 Pgoal(:,:,3) = [0.55; 0; 0.5062; 1.85; 1.55; 0.1259];
@@ -58,6 +60,12 @@ end
 % % ----------------------------------------------------------------------------------------------------------------   
 % % ------------------------------- Do not change the code beyond this line --------------------------------------
 % % ----------------------------------------------------------------------------------------------------------------
+txt2 = 'Your robot (in blue) should follow the lines representing the correct robot configuration (in green) and reach the circles of color with its end effector';
+txt1 = 'The goal of this exercise is to verify your inverse kinematics function by verifying that it made the robot go to the desired cartesian positions in the correct configuration.';
+txt3 = '';
+txt4 = 'When you are done reading, press ok to start the program. To change position of verification, press any key.';
+uiwait(msgbox({txt1 txt2 txt3 txt4}, 'Inverse Kinematics'));
+
 for index=1:7
     coordinates = forwardKinematicsJaco6DOFS_complete(Convention,DH,T0,q(:,index),AngleUnit);
      % We store the position of the end effector in EndEffector
@@ -79,15 +87,18 @@ for index=1:7
    set(findall(gca, 'Type', 'Line'),'LineWidth',5);
    xlabel('X')
    ylabel('Y')
-   xlim([-1 1])
-   ylim([-1 1])
-   zlim([0 1.3])
-   
+%    xlim([-1 1])
+%    ylim([-1 1])
+%    zlim([0 1.3])
+%    
    % We mark the base with a red *
    plot3(coordinates(1,1),coordinates(2,1),coordinates(3,1), '-r*')
    
    % We show the trajectory for the whole simulation
    plot3(EndEffector(1:index,1),EndEffector(1:index,2),EndEffector(1:index,3),'.r')
+   p = plot3(C.coordinates(1,:,index),C.coordinates(2,:,index),C.coordinates(3,:,index), '-g');
+   p.LineWidth = 2;
+   
    for ii=1:DOF
     plot3(Pgoal(1,1,ii),Pgoal(2,1,ii),Pgoal(3,1,ii), '-o')
    end
