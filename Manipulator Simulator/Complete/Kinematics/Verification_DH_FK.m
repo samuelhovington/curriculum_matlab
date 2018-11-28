@@ -42,8 +42,8 @@ for index = 1:length(JntPos.ans(1,:))
 % ----------------------------------------------------------------------------------------------------------------
 
 % Choose your convention
-    Convention = 'Classic';
-%     Convention = 'Modified';
+%     Convention = 'Classic';
+    Convention = 'Modified';
     
 % Choose the unit of the angles
     AngleUnit = 'Degrees';
@@ -57,8 +57,8 @@ for index = 1:length(JntPos.ans(1,:))
     q(2) = Q2(index)+90;
     q(3) = Q3(index)+90;
     q(4) = Q4(index);
-    q(5) = Q5(index);
-    q(6) = (Q6(index)-90);
+    q(5) = Q5(index)-180;
+    q(6) = -(Q6(index)-270);
     
     
 % Add your definition of the Trasformation Matrix between the world 
@@ -73,12 +73,12 @@ for index = 1:length(JntPos.ans(1,:))
 % spherical wrist just above.
     
     %       alpha   a       d           theta   
-    DH = [  pi/2,   0,      -D1,        q(1);
-            pi,     D2,     0,          q(2);
-            pi/2 ,  0,      -e2,        q(3);
+    DH = [  0,      0,      -D1,        q(1);
+            pi/2,   0,     0,          q(2);
+            pi,     D2,      -e2,        q(3);
             pi/2,   0,      -(D3+D4),   q(4);
             pi/2,   0,      0,          q(5);
-            pi,     0,      -(D5+D6),   q(6)];
+            pi/2,   0,      (D5+D6),   q(6)];
    
 
 % ----------------------------------------------------------------------------------------------------------------   

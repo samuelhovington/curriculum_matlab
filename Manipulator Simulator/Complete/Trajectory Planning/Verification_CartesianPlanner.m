@@ -118,7 +118,7 @@ uiwait(msgbox({txt1 txt2 txt3 txt4}, 'Cartesian Planner'));
        figure(1)
 
        % We plot the position of each articulation
-       c = plot3(coordinates(1,:),coordinates(2,:),coordinates(3,:));
+       plot3(coordinates(1,:),coordinates(2,:),coordinates(3,:));
        hold on 
        
 
