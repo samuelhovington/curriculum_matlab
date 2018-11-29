@@ -1,12 +1,16 @@
+%File that executes the dynamics of a 6 DOF S Ultra Lightweight Robotic Arm
+%using the Newton-Euler iterative algorithm.
+
+%Created on 2018-11-21 by Simon Michaud @Kinova
+%Modified on 2018-11-28
 clear all;close all;
 
-theta = [180;270;180;270;270;270];
+theta = [337;221;53;252;264;337];
 dtheta = [0;0;0;0;0;0];
 ddtheta = [0;0;0;0;0;0];
 theta = theta*pi/180;
 
-
-m = [0.18198+570,0.42399,0.21100,0.09184, 0.09184,0.727];
+m = [0.18198+0.570,0.42399+0.570,0.21100+0.570,0.09184+0.357, 0.09184+0.357,0.727+0.357];
 D(1) = 0.2755;
 D(2) = 0.4100;
 D(3) = 0.2073;
@@ -15,6 +19,8 @@ D(5) = 0.1038;
 D(6) = 0.16;
 e2 = 0.0098;
 g = 9.81;
+
+
 Ipm = [0.0001020703 0.0003248936 0.0003536944 -5.214394e-9 -0.000021186541 -4.141348e-9];
 Ic = [Ipm(2), Ipm(3), Ipm(1), -Ipm(6), Ipm(4), -Ipm(5)];
 I(:,:,1) = [Ic(1), Ic(4), Ic(5); Ic(4), Ic(2), Ic(6); Ic(5), Ic(6), Ic(3)];
@@ -53,9 +59,7 @@ dw0 = [0;0;0];
 dv0 = [0;0;-g];
 fl = [0;0;0];
 nl = [0;0;0];
-% ---------------------------------------------------------------------------------------------------------------
-% -------------------- Change the different parts of this section for your situation ----------------------------
-% ---------------------------------------------------------------------------------------------------------------
+
 % Choose your convention
 %     Convention = 'Classic';
     Convention = 'Modified';
@@ -75,13 +79,13 @@ nl = [0;0;0];
 % syntax for the angles q and and use the dimensions of Jaco2 with a
 % spherical wrist just above.
 %       alpha   a       d 
-DH = DH(Convention, 1);
+    DH = DH(Convention, 1);
 % Add your definition of the Trasformation Matrix between the world 
 % arm's frame and the first DH frames that you just created 
     TW0=[1   0   0   0;
-        0   -1  0   0;
-        0   0   -1  0;
-        0   0   0   1];
+         0   -1  0   0;
+         0   0   -1  0;
+         0   0   0   1];
 
 T = FKforDynmcs(Convention, DOF, DH, TW0, theta, AngleUnit);
 for index = 1:DOF
@@ -137,7 +141,6 @@ rcmi_0(:,:,1) = rcmi_i(:,:,1);
        rcmi_0(:,:,i) =  (R0(:,:,i) * rcmi_i(:,:,i)) + J(:,:,i-1);  
     end
 %% GRAPHING THE ROBOT
-
 
     %Physical positions of the origins of the frames to view the robot
     J6 = [T0(1:3,4,6)];
