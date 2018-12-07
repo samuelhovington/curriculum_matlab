@@ -14,8 +14,8 @@ desired_time = 1;
 % ------------------------- Make the change here to test your trajectory planner ---------------------------------
 % ---------------------------------------------------------------------------------------------------------------- 
 
-JntPos = TrajectoryPlanner_6DOFS_LB_J_complete(theta_i, theta_g, desired_time);
-% JntPos = TrajectoryPlanner_6DOFS_LB_J_to_complete(theta_i, theta_g, desired_time);
+% JntPos = TrajectoryPlanner_6DOFS_LB_J_complete(theta_i, theta_g, desired_time);
+JntPos = TrajectoryPlanner_6DOFS_LB_J_to_complete(theta_i, theta_g, desired_time);
 
 % % ----------------------------------------------------------------------------------------------------------------   
 % % ------------------------------- Do not change the code beyond this line --------------------------------------

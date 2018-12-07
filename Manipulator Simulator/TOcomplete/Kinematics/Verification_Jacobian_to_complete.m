@@ -72,8 +72,8 @@ for ii = 1:3
 % The second line call a function that you must complete to make it works.
 
 % Comment/Uncomment the line that correspond to your situation
-    J(:,:,ii) = Jacobian_complete(Convention, DOF, DH, T0, q(:,ii), AngleUnit);
-%     J(:,:,ii) = Jacobian_to_complete(Convention, DOF, DH, T0, q(:,ii), AngleUnit);
+%     J(:,:,ii) = Jacobian_complete(Convention, DOF, DH, T0, q(:,ii), AngleUnit);
+    J(:,:,ii) = Jacobian_to_complete(Convention, DOF, DH, T0, q(:,ii), AngleUnit);
 
 
 % % ----------------------------------------------------------------------------------------------------------------   

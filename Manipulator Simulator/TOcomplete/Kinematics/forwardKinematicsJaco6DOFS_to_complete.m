@@ -14,7 +14,7 @@
             %base
 
 
-function [coordinates] = forwardKinematicsJaco6DOFS_to_complete(convention, DH, T0, q, angleUnit)
+function [coordinates] = forwardKinematicsJaco6DOFS_to_complete(convention, DH, TW0, q, angleUnit)
 %% Parameters for the creation of the FK
     % store the DH parameters into variable to make it clearer
     for i=1:6
@@ -36,9 +36,9 @@ function [coordinates] = forwardKinematicsJaco6DOFS_to_complete(convention, DH, 
 
         % Make sure to use cosd and sind when angles are in degree 
         for i=1:6
-            T(:,:,i)=[  0 0 0 0 ...
-                        0 0 0 0 ...
-                        0 0 0 0 ...
+           T(:,:,i)=[  0 0 0 0;...
+                        0 0 0 0;...
+                        0 0 0 0;...
                         0 0 0 0];
         end
 
@@ -50,9 +50,9 @@ function [coordinates] = forwardKinematicsJaco6DOFS_to_complete(convention, DH, 
 
         % Make sure to use cosd and sind when angles are in degree
         for i=1:6
-            T(:,:,i)=[  0 0 0 0 ...
-                        0 0 0 0 ...
-                        0 0 0 0 ...
+            T(:,:,i)=[  0 0 0 0;...
+                        0 0 0 0;...
+                        0 0 0 0;...
                         0 0 0 0];
         end
     end
@@ -70,12 +70,12 @@ function [coordinates] = forwardKinematicsJaco6DOFS_to_complete(convention, DH, 
     
 %% Positions and orientation of the joints from transformation matrices
     %Physical positions of the origins of the frames to view the robot
-    J6 = [T0(1:3,4,6)];
-        J5 = [T0(1:3,4,5)];
-        J4 = [T0(1:3,4,4)];
-        J3 = [T0(1:3,4,3)];
-        J2 = [T0(1:3,4,2)];
-        J1 = [T0(1:3,4,1)];
+        J6 = [T6(1:3,4)];
+        J5 = [T5(1:3,4)];
+        J4 = [T4(1:3,4)];
+        J3 = [T3(1:3,4)];
+        J2 = [T2(1:3,4)];
+        J1 = [T1(1:3,4)];
         J0 = [TW0(1:3,4)];
         coordinates = [J0,J1,J2,J3,J4,J5,J6];
     
@@ -89,6 +89,6 @@ function [coordinates] = forwardKinematicsJaco6DOFS_to_complete(convention, DH, 
     R6_0 = [T6(1:3,1), T6(1:3,2), T6(1:3,3)];
     r6_0 = [T6(1,4), T6(2,4), T6(3,4)];
     EulerXYZ = MatRotationToEuler(R6_0);
-    X = [r6_0;EulerXYZ]
+    X = [transpose(r6_0);EulerXYZ];
         
 end

@@ -50,8 +50,10 @@ function q = InverseKinematics_to_complete(convention, DOF,DH, TW0, Pgoal, theta
         dX(1:3,:) = 0;  %positional displacement as seen in the class notes
         
         
+%Add your Jacobian if it works and if it does not remove "_to" from the
+%following line
+        J = Jacobian_to_complete(convention, DOF, DH, TW0,q, angleUnit);   %Determination of the Jacobian at angle q
 % The rest of the file should not be modified
-        J = Jacobian_complete(convention, DOF, DH, TW0,q, angleUnit);   %Determination of the Jacobian at angle q
         dTheta = 0;                         %Inverse Kinematics formula
         q = q + dTheta;                     %Finding new angles
         Pcurr = FKforIK(convention, DOF, DH, TW0, q, angleUnit); %Determining new Pcurr from new q

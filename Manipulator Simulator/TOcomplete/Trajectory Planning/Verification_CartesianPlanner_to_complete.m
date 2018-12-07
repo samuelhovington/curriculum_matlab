@@ -69,8 +69,8 @@ e2 = 0.0098;
 % ----------------------------------------------------------------------------------------------------------------   
 % ------------------------------ Make the change here to test your trajectory planner --------------------------------------
 % ---------------------------------------------------------------------------------------------------------------- 
-    Cartesian_trajectory = TrajectoryPlanner_6DOFS_LB_C_complete(X_i, X_g, T);
-    % Cartesian_trajectory = TrajectoryPlanner_6DOFS_LB_C_to_complete(X_i, X_g, T);
+%     Cartesian_trajectory = TrajectoryPlanner_6DOFS_LB_C_complete(X_i, X_g, T);
+    Cartesian_trajectory = TrajectoryPlanner_6DOFS_LB_C_to_complete(X_i, X_g, T);
 
 % % ----------------------------------------------------------------------------------------------------------------   
 % % ------------------------------- Do not change the code beyond this line --------------------------------------

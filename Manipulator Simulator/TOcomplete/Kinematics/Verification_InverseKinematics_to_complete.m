@@ -67,12 +67,12 @@ DH = [  0,      0,      0;
 % ------------------------------ Make the change here to test your Inverse Kinematics --------------------------------------
 % ---------------------------------------------------------------------------------------------------------------- 
 
-q(:,1) = InverseKinematics_complete(Convention,DOF,DH,T0,Pgoal(:,:,1), q(:,1), AngleUnit);
-% q(:,1) = InverseKinematics_to_complete(Convention,DOF,DH,T0,Pgoal(:,:,1), q(:,1), AngleUnit);
+% q(:,1) = InverseKinematics_complete(Convention,DOF,DH,T0,Pgoal(:,:,1), q(:,1), AngleUnit);
+q(:,1) = InverseKinematics_to_complete(Convention,DOF,DH,T0,Pgoal(:,:,1), q(:,1), AngleUnit);
 AngleUnit = 'Radians';
 for ii =2: 7
-    q(:,ii) = InverseKinematics_complete(Convention,DOF,DH,T0,Pgoal(:,:,ii), q(:,ii-1), AngleUnit);
-%     q(:,ii) = InverseKinematics_to_complete(Convention,DOF,DH,T0,Pgoal(:,:,ii), q(:,ii-1), AngleUnit);
+%     q(:,ii) = InverseKinematics_complete(Convention,DOF,DH,T0,Pgoal(:,:,ii), q(:,ii-1), AngleUnit);
+    q(:,ii) = InverseKinematics_to_complete(Convention,DOF,DH,T0,Pgoal(:,:,ii), q(:,ii-1), AngleUnit);
 end
 
 
@@ -87,7 +87,7 @@ txt4 = 'When you are done reading, press ok to start the program. To change posi
 uiwait(msgbox({txt1 txt2 txt3 txt4}, 'Inverse Kinematics'));
 
 for index=1:7
-    coordinates = forwardKinematicsJaco6DOFS_complete(Convention,DH,T0,q(:,index),AngleUnit)
+    coordinates = forwardKinematicsJaco6DOFS_to_complete(Convention,DH,T0,q(:,index),AngleUnit)
      % We store the position of the end effector in EndEffector
    EndEffector(index,:)=coordinates(:,7);
    

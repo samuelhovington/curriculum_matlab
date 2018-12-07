@@ -89,8 +89,8 @@ for index = 1:length(JntPos.ans(1,:))
 
 % Comment/Uncomment the line that correspond to your situation
 
-   coordinates = forwardKinematicsJaco6DOFS_complete(Convention, DH, T0,q, AngleUnit);
-%    coordinates = forwardKinematicsJaco6DOFS_to_complete(q,DH,T0,Convention);
+%    coordinates = forwardKinematicsJaco6DOFS_complete(Convention, DH, T0,q, AngleUnit);
+   coordinates = forwardKinematicsJaco6DOFS_to_complete(Convention, DH, T0, q, AngleUnit);
 
 % ----------------------------------------------------------------------------------------------------------------   
 % ------------------------------- Do not change the code a beyond this line --------------------------------------

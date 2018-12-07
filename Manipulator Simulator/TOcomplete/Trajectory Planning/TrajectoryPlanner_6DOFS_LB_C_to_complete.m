@@ -52,7 +52,7 @@ function trajectory = TrajectoryPlanner_6DOFS_LB_C_to_complete(X_i, X_g, T)
         for i = 1:JOINTS
             %Verification that the trajectory is in the acceleration phase
             if (t<0) && (t>=0)
-              trajectory(i+1,j) = 0;
+              trajectory(i+1,j) = 1;
               joint_velocity(i+1,j) = 0;
               joint_acceleration(i+1,j) = 0;
             
