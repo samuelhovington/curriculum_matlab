@@ -10,7 +10,7 @@
             %first row being the time and the 6 other being the cartesian
             %position and orientation of the end effector
 
-function trajectory = TrajectoryPlanner_6DOFS_LB_C_complete(X_i, X_g, T)
+function trajectory = TrajectoryPlanner_6DOFS_LB_C_to_complete(X_i, X_g, T)
     JOINTS = 6;
     % Definition of the time parameters
     ta = T/3;               %ta is the time in the acceleration blend

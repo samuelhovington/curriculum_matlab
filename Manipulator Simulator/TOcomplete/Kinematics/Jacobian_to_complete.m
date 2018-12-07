@@ -26,7 +26,7 @@ function J = Jacobian_to_complete(convention, DOF, DH, TW0, q, angleUnit)
 % This section should be the same as in the foward_kinematics_to_complete
   if strcmp(convention,'Modified')
 % ----------------------------------------------------------------------------------------------------------------
-% ---------------------------- Create the Transformation matrix ^{n-1}T^{n} --------------------------------------
+% ---------------------------- Add the Transformation matrix ^{n-1}T^{n} --------------------------------------
 % ----------------------------------------------------------------------------------------------------------------
 
         % Use only radians
@@ -40,7 +40,7 @@ function J = Jacobian_to_complete(convention, DOF, DH, TW0, q, angleUnit)
     elseif strcmp(convention, 'Classic')
 
 % ----------------------------------------------------------------------------------------------------------------
-% ---------------------------- Create the Transformation matrix ^{n-1}T^{n} --------------------------------------
+% ------------------------------- Add the Transformation matrix ^{n-1}T^{n} --------------------------------------
 % ----------------------------------------------------------------------------------------------------------------
 
         % Use only radians
@@ -52,7 +52,7 @@ function J = Jacobian_to_complete(convention, DOF, DH, TW0, q, angleUnit)
         end
     end
 % ----------------------------------------------------------------------------------------------------------------
-% ---------- Create the transformation matrices from the world frame of the robot --------------------------------------
+% --------------- Create the transformation matrices from the world frame of the robot ---------------------------
 % ----------------------------------------------------------------------------------------------------------------
 
     T0(:,:,1) = TW0 *T(:,:,1);
@@ -61,7 +61,7 @@ function J = Jacobian_to_complete(convention, DOF, DH, TW0, q, angleUnit)
     end
 
 % ----------------------------------------------------------------------------------------------------------------
-% ----------------------------------------------------- Create the Jacobian --------------------------------------
+% --------------------------- Change the following lines to create the Jacobian ----------------------------------
 % ----------------------------------------------------------------------------------------------------------------
     if strcmp(convention, 'Classic')
 % Enter the first column of the jacobian in Jacobol1

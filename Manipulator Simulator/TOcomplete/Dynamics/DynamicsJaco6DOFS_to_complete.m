@@ -145,12 +145,19 @@ function tau = DynamicsJaco6DOFS_to_complete(theta, dtheta, ddtheta, AngleUnit)
     end
 
 %Inward iteration from joint 6 to 1
+
+% Force at the end effector 
     f_i(:,:,6) = fl + 0;
+% Moment at the end  efector
     n_i(:,:,6) = 0 + nl;
+% Torque of the 6th joint
     tau(6,1) = n_i(3,:,6);
     for index =5:-1:1
+    % Force from the end effector at joint i
         f_i(:,:,index) = 0;
+    % Moment form the end effector at joint i
         n_i(:,:,index) = 0;
+    % Torque of the ith joint
         tau(index, 1) = transpose(n_i(3,:,index));
     end
 end

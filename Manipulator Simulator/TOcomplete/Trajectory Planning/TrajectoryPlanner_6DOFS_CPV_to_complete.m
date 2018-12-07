@@ -11,7 +11,7 @@
             %positions of the robot
 
 
-function trajectory = TrajectoryPlanner_6DOFS_CPV_complete(theta_i, theta_v, theta_g, desired_time)
+function trajectory = TrajectoryPlanner_6DOFS_CPV_to_complete(theta_i, theta_v, theta_g, desired_time)
 
 JOINTS = 6;
 
