@@ -1,12 +1,6 @@
 # curriculum_matlab built with Matlab R2018a
 This folder contains all the necessary files for the teacher giving KINOVA's Robotics Curriculum.
 
-To install the folder to your windows computer from the browser. Click on the button "Clone or download" and if
-you have the Desktop app, click on "Open in Desktop" , else click on "Download ZIP". If you have the ZIP, simply
-extract the files on your computer. If your are on the desktop, click on clone. Once the files are on your computer,
-open Matlab and add all files to your path by right clicking on the file curriculum_matlab and by clicking on 
-"Add to path" and "Selected folders and subfolders". Then you are ready to run files.
-
 The folders "Subfolders" contains source files that were used for the developement of these practical activities. 
 They should stay in the files and added to the path for the functions to work.
 
